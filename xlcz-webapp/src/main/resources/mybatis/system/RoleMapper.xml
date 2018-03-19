@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.gov.zjport.xlcz.dao.system.RoleMapper">
+    <resultMap id="BaseResultMap" type="Role">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="role_name" property="roleName" jdbcType="VARCHAR"/>
+        <result column="role_title" property="roleTitle" jdbcType="VARCHAR"/>
+        <result column="role_desc" property="roleDesc" jdbcType="VARCHAR"/>
+        <result column="orders" property="orders" jdbcType="BIGINT"/>
+        <result column="dept_id" property="deptId" jdbcType="INTEGER"/>
+        <result column="dept_name" property="deptName" jdbcType="VARCHAR"/>
+        <result column="deleted_flag" property="deletedFlag" jdbcType="VARCHAR"/>
+        <result column="create_id" property="createId" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="modify_id" property="modifyId" jdbcType="INTEGER"/>
+        <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <resultMap id="BaseRoleJo" type="RoleJo">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="role_name" property="roleName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, role_name, role_title, role_desc, orders, dept_id, deleted_flag, create_id, create_time,
+        modify_id, modify_time
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_role
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from sys_role
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="Role">
+        insert into sys_role (id, role_name, role_title,
+          role_desc, orders, dept_id,
+          deleted_flag, create_id, create_time,
+          modify_id, modify_time)
+        values (#{id,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}, #{roleTitle,jdbcType=VARCHAR},
+          #{roleDesc,jdbcType=VARCHAR}, #{orders,jdbcType=BIGINT}, #{deptId,jdbcType=INTEGER},
+          #{deletedFlag,jdbcType=VARCHAR}, #{createId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
+          #{modifyId,jdbcType=INTEGER}, #{modifyTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="Role">
+        insert into sys_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="roleName != null">
+                role_name,
+            </if>
+            <if test="roleTitle != null">
+                role_title,
+            </if>
+            <if test="roleDesc != null">
+                role_desc,
+            </if>
+            <if test="orders != null">
+                orders,
+            </if>
+            <if test="deptId != null">
+                dept_id,
+            </if>
+            <if test="deletedFlag != null">
+                deleted_flag,
+            </if>
+            <if test="createId != null">
+                create_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="modifyId != null">
+                modify_id,
+            </if>
+            <if test="modifyTime != null">
+                modify_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="roleName != null">
+                #{roleName,jdbcType=VARCHAR},
+            </if>
+            <if test="roleTitle != null">
+                #{roleTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="roleDesc != null">
+                #{roleDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="orders != null">
+                #{orders,jdbcType=BIGINT},
+            </if>
+            <if test="deptId != null">
+                #{deptId,jdbcType=INTEGER},
+            </if>
+            <if test="deletedFlag != null">
+                #{deletedFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="createId != null">
+                #{createId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyId != null">
+                #{modifyId,jdbcType=INTEGER},
+            </if>
+            <if test="modifyTime != null">
+                #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="Role">
+        update sys_role
+        <set>
+            <if test="roleName != null">
+                role_name = #{roleName,jdbcType=VARCHAR},
+            </if>
+            <if test="roleTitle != null">
+                role_title = #{roleTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="roleDesc != null">
+                role_desc = #{roleDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="orders != null">
+                orders = #{orders,jdbcType=BIGINT},
+            </if>
+            <if test="deptId != null">
+                dept_id = #{deptId,jdbcType=INTEGER},
+            </if>
+            <if test="deletedFlag != null">
+                deleted_flag = #{deletedFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="createId != null">
+                create_id = #{createId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyId != null">
+                modify_id = #{modifyId,jdbcType=INTEGER},
+            </if>
+            <if test="modifyTime != null">
+                modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="Role">
+        update sys_role
+        set role_name = #{roleName,jdbcType=VARCHAR},
+          role_title = #{roleTitle,jdbcType=VARCHAR},
+          role_desc = #{roleDesc,jdbcType=VARCHAR},
+          orders = #{orders,jdbcType=BIGINT},
+          dept_id = #{deptId,jdbcType=INTEGER},
+          deleted_flag = #{deletedFlag,jdbcType=VARCHAR},
+          create_id = #{createId,jdbcType=INTEGER},
+          create_time = #{createTime,jdbcType=TIMESTAMP},
+          modify_id = #{modifyId,jdbcType=INTEGER},
+          modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <!-- 查询部门角色 -->
+    <select id="findByDeptId" parameterType="java.lang.Integer" resultMap="BaseRoleJo">
+        select * from sys_role
+        where 1=1
+        <if test="deptId != null and deptId != ''">
+            and dept_id = #{deptId}
+        </if>
+    </select>
+
+    <!-- 角色分页查询 -->
+    <select id="findByPage" parameterType="RoleSo" resultMap="BaseResultMap">
+        select t.*,t1.dept_name from sys_role t
+        left join sys_dept t1 on t1.id = t.dept_id
+        <where>
+            <if test="roleName != null and roleName != ''">
+                and t.role_name like concat(concat('%',#{roleName}),'%')
+            </if>
+        </where>
+    </select>
+
+</mapper>

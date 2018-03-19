@@ -1,0 +1,243 @@
+/*index.css*/
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+.warp {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: "微软雅黑";
+  color: #333;
+  background-color: #f1f4f9;
+  min-width: 1000px;
+}
+.head {
+  height: 70px;
+  background-color: #000;
+}
+.head .logo {
+  float: left;
+  margin: 22px 10px;
+  width: 218px;
+  height: 26px;
+  background: url(../images/logo.png) 0 0 no-repeat;
+}
+.head .remind {
+  float: right;
+  margin-right: 20px;
+}
+.head .remind > a {
+  float: left;
+}
+.head .remind .clock {
+  position: relative;
+  margin: 24px 10px;
+  width: 21px;
+  height: 22px;
+  background: url(../images/clock.png) 0 0 no-repeat;
+}
+.head .remind .clock .circle {
+  position: absolute;
+  left: 15px;
+  top: -5px;
+  width: 15px;
+  height: 15px;
+  font-size: 12px;
+  line-height: 15px;
+  text-align: center;
+  color: #fff;
+  background-color: #ff7f02;
+  border-radius: 50%;
+}
+.head .remind .close {
+  margin: 24px 10px;
+  width: 21px;
+  height: 21px;
+  background: url(../images/close.png) 0 0 no-repeat;
+}
+.head .remind .headPicture {
+  margin: 12px 10px;
+  width: 45px;
+  height: 45px;
+  background: url(../images/man.png) 0 0 no-repeat;
+}
+.head .remind .who{
+    line-height: 70px;
+    font-size: 14px;
+    color: #fff;
+    text-decoration: none;
+}
+.main {
+  position: absolute;
+  top: 70px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.nav {
+  width: 180px;
+  height: 100%;
+  overflow-x: hidden;
+}
+.nav .select-border {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 5px;
+  height: 40px;
+  background: #ff9c01;
+}
+.container {
+  position: relative;
+  height: 100%;
+}
+.container .iframe {
+  position: absolute;
+  top: 0;
+  bottom: 40px;
+  width: 100%;
+}
+.container .iframe #mainframe {
+  width: 100%;
+  height: 100%;
+}
+.container .foot {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+}
+.foot {
+  height: 40px;
+  color: #999;
+  text-align: center;
+  line-height: 40px;
+  background-color: #f1f4f9;
+  z-index: 999;
+  font-family: "微软雅黑";
+}
+/*修改miniui样式*/
+/*split*/
+/*split边框*/
+.mini-splitter-border {
+    border: 0;
+}
+.mini-splitter-pane1 {
+    border: 0;
+}
+.mini-splitter-pane2 {
+    border: 0;
+}
+/*split收起按钮*/
+.mini-layout-split {
+    margin-left: 1px;
+}
+.mini-splitter-pane1-button {
+    background: url(../images/left.png) no-repeat 50% 50%;
+}
+.mini-splitter-pane2-button {
+    background: url(../images/right.png) no-repeat 50% 50%;
+}
+/*nav*/
+/*隐藏滚动条*/
+.mini-menu-border {
+    width: 200px;
+}
+/*背景*/
+.mini-outlookmenu{
+    background-color: #0978be;
+}
+/*去掉边框*/
+.mini-outlookbar-groupBody {
+    border: 0;
+}
+/*底边框*/
+.mini-outlookbar-group {
+    border-bottom-color: #0570B3;
+}
+/*head*/
+.mini-outlookbar-groupHeader {
+    background: none;
+    height: 40px;
+    line-height: 40px;
+    color: white;
+    padding-left: 10px;
+}
+/*高度*/
+.mini-menuitem {
+    height: 40px;
+    line-height: 40px;
+    position: relative;
+}
+/*图标*/
+.mini-outlookbar .mini-outlookbar-icon {
+    margin-top: 12px;
+    float: left;
+    width: 19px;
+    height: 19px;
+    overflow: hidden;
+    vertical-align: middle;
+    margin-left: 2px;
+}
+/*划过样式*/
+.mini-menuitem-hover {
+    background: none;
+    border: solid 1px #0978bf;
+    background-color: #0369AB;
+}
+/*选中样式*/
+.mini-menuitem-selected {
+    background: none;
+    border: solid 1px #0978bf;
+    background-color: #0369AB;
+}
+/*收起图标*/
+.mini-layout-region-west .mini-layout-region-header .mini-tools-collapse {
+    background: url(../images/collect.png) no-repeat 50% 50%;
+    width: 20px;
+    height: 20px;
+    margin-top: 10px!important;
+}
+/*下拉图标*/
+.mini-outlookbar .mini-outlookbar-expand .mini-tools-collapse {
+    background: url(../images/downArrow.png) no-repeat 50% 50%;
+    width: 20px;
+    height: 20px;
+    margin-top: 10px!important;
+}
+/*收起下拉图标*/
+.mini-tools .mini-tools-collapse {
+    background: url(../images/rightArrow.png) no-repeat 50% 50%;
+    width: 20px;
+    height: 20px;
+    margin-top: 10px!important;
+}
+/*一级标题字体大小*/
+.mini-outlookbar-groupTitle {
+    overflow: hidden;
+    white-space: nowrap;
+    float: left;
+    padding-left: 4px;
+    font-size: 16px;
+    width: 80%;
+}
+/*二级标题字体大小*/
+.mini-menuitem-text {
+    cursor: default;
+    color: white;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-break: keep-all;
+    font-size: 14px;
+    width: 80%;
+}
+/*字体*/
+.mini-outlookbar,.mini-menu{
+    font-family: "微软雅黑"!important;
+}

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.gov.zjport.xlcz.dao.system.DeptMapper">
+    <resultMap id="BaseResultMap" type="Dept">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="dept_name" property="deptName" jdbcType="VARCHAR"/>
+        <result column="dept_desc" property="deptDesc" jdbcType="VARCHAR"/>
+        <result column="deleted_flag" property="deletedFlag" jdbcType="VARCHAR"/>
+        <result column="create_id" property="createId" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="modify_id" property="modifyId" jdbcType="INTEGER"/>
+        <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <resultMap id="BaseDeptJo" type="DeptJo">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="dept_name" property="deptName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, dept_name, dept_desc, deleted_flag, create_id, create_time, modify_id, modify_time
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_dept
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from sys_dept
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="Dept">
+        insert into sys_dept (id, dept_name, dept_desc,
+          deleted_flag, create_id, create_time,
+          modify_id, modify_time)
+        values (#{id,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, #{deptDesc,jdbcType=VARCHAR},
+          #{deletedFlag,jdbcType=VARCHAR}, #{createId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
+          #{modifyId,jdbcType=INTEGER}, #{modifyTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="Dept" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_dept
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <!--<if test="id != null">
+                id,
+            </if>-->
+            <if test="deptName != null">
+                dept_name,
+            </if>
+            <if test="deptDesc != null">
+                dept_desc,
+            </if>
+            <if test="deletedFlag != null">
+                deleted_flag,
+            </if>
+            <if test="createId != null">
+                create_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="modifyId != null">
+                modify_id,
+            </if>
+            <if test="modifyTime != null">
+                modify_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <!--<if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>-->
+            <if test="deptName != null">
+                #{deptName,jdbcType=VARCHAR},
+            </if>
+            <if test="deptDesc != null">
+                #{deptDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="deletedFlag != null">
+                #{deletedFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="createId != null">
+                #{createId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyId != null">
+                #{modifyId,jdbcType=INTEGER},
+            </if>
+            <if test="modifyTime != null">
+                #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="Dept">
+        update sys_dept
+        <set>
+            <if test="deptName != null">
+                dept_name = #{deptName,jdbcType=VARCHAR},
+            </if>
+            <if test="deptDesc != null">
+                dept_desc = #{deptDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="deletedFlag != null">
+                deleted_flag = #{deletedFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="createId != null">
+                create_id = #{createId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyId != null">
+                modify_id = #{modifyId,jdbcType=INTEGER},
+            </if>
+            <if test="modifyTime != null">
+                modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="Dept">
+        update sys_dept
+        set dept_name = #{deptName,jdbcType=VARCHAR},
+          dept_desc = #{deptDesc,jdbcType=VARCHAR},
+          deleted_flag = #{deletedFlag,jdbcType=VARCHAR},
+          create_id = #{createId,jdbcType=INTEGER},
+          create_time = #{createTime,jdbcType=TIMESTAMP},
+          modify_id = #{modifyId,jdbcType=INTEGER},
+          modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <!-- 分页查询部门 -->
+    <select id="findByPage" resultMap="BaseResultMap" parameterType="Dept">
+        select * from sys_dept
+        <where>
+            <if test="deptName != null and deptName != ''">
+                and dept_name like concat(concat('%',#{deptName}),'%')
+            </if>
+        </where>
+    </select>
+
+    <!-- 根据部门名称查询部门 -->
+    <select id="findByDeptName" parameterType="Dept" resultMap="BaseResultMap">
+        select * from sys_dept
+        where dept_name = #{deptName}
+    </select>
+
+    <!-- 部门下拉列表 -->
+    <select id="findAll" resultMap="BaseDeptJo">
+        select id,dept_name from sys_dept
+    </select>
+</mapper>

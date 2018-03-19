@@ -1,0 +1,21 @@
+[
+	{ id: "example", text: "通用页面", iconCls: "icon-allList"},
+	{ id: "pageHomeExample",pid: "example", text: "首页",url: "example/pageHome.html"},
+	{ id: "singleSearchExample", pid: "example", text: "标题列表",url: "example/singleSearch.html" },
+	{ id: "doubleSearchExample", pid: "example", text: "两行查询",url: "example/doubleSearch.html" },
+	{ id: "singleformExample", pid: "example", text: "单列表单",url: "example/singleform.html" },
+	{ id: "formExample", pid: "example", text: "双列表单",url: "example/form.html" },
+	{ id: "specialFormExample", pid: "example", text: "分类表单",url: "example/specialForm.html" },
+	{ id: "tableDropExample", pid: "example", text: "多个表单",url: "example/tableDrop.html" },
+	{ id: "infoExample", pid: "example", text: "查看详情",url: "example/info.html" },
+	{ id: "specialInfoExample", pid: "example", text: "分类详情",url: "example/specialInfo.html" },
+	{ id: "chartExample", pid: "example", text: "图表",url: "example/chart.html" },
+	{ id: "alertExample", pid: "example", text: "弹出信息页",url: "example/open.html" },
+	
+	{ id: "prompt", text: "信息提示", iconCls: "icon-allList"},
+	{ id: "notFind", pid: "prompt", text: "404错误提示",url: "prompt/404.html" },
+	{ id: "notfind", pid: "prompt", text: "查询提示",url: "prompt/notInfo.html" },
+	{ id: "notInfo", pid: "prompt", text: "查询提示稍后",url: "prompt/waiting.html" },
+	{ id: "waiting", pid: "prompt", text: "查询提示无结果",url: "prompt/notfind.html" },
+	{ id: "message", pid: "prompt", text: "消息弹出框",url: "example/message.html" }
+]

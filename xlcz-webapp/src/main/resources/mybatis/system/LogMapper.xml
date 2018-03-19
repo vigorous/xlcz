@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.gov.zjport.xlcz.dao.system.LogMapper">
+    <resultMap id="BaseResultMap" type="Log">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="role_id" property="roleId" jdbcType="INTEGER"/>
+        <result column="ip" property="ip" jdbcType="VARCHAR"/>
+        <result column="login_time" property="loginTime" jdbcType="TIMESTAMP"/>
+        <result column="deleted_flag" property="deletedFlag" jdbcType="VARCHAR"/>
+        <result column="create_id" property="createId" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="modify_id" property="modifyId" jdbcType="INTEGER"/>
+        <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <resultMap id="BaseLogDto" type="LogDto">
+        <result column="userId" property="userId" jdbcType="INTEGER"/>
+        <result column="roleId" property="roleId" jdbcType="INTEGER"/>
+        <result column="ip" property="ip" jdbcType="VARCHAR"/>
+        <result column="loginTime" property="loginTime" jdbcType="TIMESTAMP"/>
+        <result column="userName" property="userName" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="roleName" property="roleName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, user_id, role_id, ip, login_time, deleted_flag, create_id, create_time, modify_id,
+        modify_time
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_log
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from sys_log
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="Log" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_log (user_id, role_id,
+          ip, login_time, deleted_flag,
+          create_id, create_time, modify_id,
+          modify_time)
+        values (#{userId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER},
+          #{ip,jdbcType=VARCHAR}, #{loginTime,jdbcType=TIMESTAMP}, #{deletedFlag,jdbcType=VARCHAR},
+          #{createId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{modifyId,jdbcType=INTEGER},
+          #{modifyTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="Log" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <!--<if test="id != null">
+                id,
+            </if>-->
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="roleId != null">
+                role_id,
+            </if>
+            <if test="ip != null">
+                ip,
+            </if>
+            <if test="loginTime != null">
+                login_time,
+            </if>
+            <if test="deletedFlag != null">
+                deleted_flag,
+            </if>
+            <if test="createId != null">
+                create_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="modifyId != null">
+                modify_id,
+            </if>
+            <if test="modifyTime != null">
+                modify_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="roleId != null">
+                #{roleId,jdbcType=INTEGER},
+            </if>
+            <if test="ip != null">
+                #{ip,jdbcType=VARCHAR},
+            </if>
+            <if test="loginTime != null">
+                #{loginTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deletedFlag != null">
+                #{deletedFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="createId != null">
+                #{createId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyId != null">
+                #{modifyId,jdbcType=INTEGER},
+            </if>
+            <if test="modifyTime != null">
+                #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="Log">
+        update sys_log
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="roleId != null">
+                role_id = #{roleId,jdbcType=INTEGER},
+            </if>
+            <if test="ip != null">
+                ip = #{ip,jdbcType=VARCHAR},
+            </if>
+            <if test="loginTime != null">
+                login_time = #{loginTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deletedFlag != null">
+                deleted_flag = #{deletedFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="createId != null">
+                create_id = #{createId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyId != null">
+                modify_id = #{modifyId,jdbcType=INTEGER},
+            </if>
+            <if test="modifyTime != null">
+                modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="Log">
+        update sys_log
+        set user_id = #{userId,jdbcType=INTEGER},
+          role_id = #{roleId,jdbcType=INTEGER},
+          ip = #{ip,jdbcType=VARCHAR},
+          login_time = #{loginTime,jdbcType=TIMESTAMP},
+          deleted_flag = #{deletedFlag,jdbcType=VARCHAR},
+          create_id = #{createId,jdbcType=INTEGER},
+          create_time = #{createTime,jdbcType=TIMESTAMP},
+          modify_id = #{modifyId,jdbcType=INTEGER},
+          modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <!-- 分页查询部门 -->
+    <select id="findByPage" resultMap="BaseLogDto" parameterType="LogDto">
+        select t.id,
+        t.user_id userId,
+        t.role_id roleId,
+        t.ip,
+        t.login_time loginTime,
+        t1.user_name userName,
+        t1.name,
+        t2.role_name roleName
+        from sys_log t
+        left join sys_user t1 on t.user_id = t1.id
+        left join sys_role t2 on t.role_id = t2.id
+        <where>
+            <if test="userName != null and userName != ''">
+                and t1.user_name like concat(concat('%',#{userName}),'%')
+            </if>
+            <if test="loginTime != null and loginTime != ''">
+                and date(t.login_time) = #{loginTime}
+            </if>
+        </where>
+    </select>
+</mapper>

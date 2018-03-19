@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.gov.zjport.xlcz.dao.system.MenuMapper">
+    <resultMap id="BaseResultMap" type="Menu">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="menu_name" property="menuName" jdbcType="VARCHAR"/>
+        <result column="menu_type" property="menuType" jdbcType="TINYINT"/>
+        <result column="permission_value" property="permissionValue" jdbcType="VARCHAR"/>
+        <result column="menu_uri" property="menuUri" jdbcType="VARCHAR"/>
+        <result column="icon" property="icon" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="TINYINT"/>
+        <result column="orders" property="orders" jdbcType="BIGINT"/>
+        <result column="pid" property="pid" jdbcType="INTEGER"/>
+        <result column="deleted_flag" property="deletedFlag" jdbcType="VARCHAR"/>
+        <result column="create_id" property="createId" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="modify_id" property="modifyId" jdbcType="INTEGER"/>
+        <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, menu_name, menu_type, permission_value, menu_uri, icon, status, orders, pid,
+        deleted_flag, create_id, create_time, modify_id, modify_time
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_menu
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from sys_menu
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insert" parameterType="Menu">
+        insert into sys_menu (id, menu_name, menu_type,
+          permission_value, menu_uri, icon,
+          status, orders, pid,
+          deleted_flag, create_id, create_time,
+          modify_id, modify_time)
+        values (#{id,jdbcType=INTEGER}, #{menuName,jdbcType=VARCHAR}, #{menuType,jdbcType=TINYINT},
+          #{permissionValue,jdbcType=VARCHAR}, #{menuUri,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR},
+          #{status,jdbcType=TINYINT}, #{orders,jdbcType=BIGINT}, #{pid,jdbcType=INTEGER},
+          #{deletedFlag,jdbcType=VARCHAR}, #{createId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
+          #{modifyId,jdbcType=INTEGER}, #{modifyTime,jdbcType=TIMESTAMP})
+    </insert>
+
+    <insert id="insertSelective" parameterType="Menu">
+        insert into sys_menu
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="menuName != null">
+                menu_name,
+            </if>
+            <if test="menuType != null">
+                menu_type,
+            </if>
+            <if test="permissionValue != null">
+                permission_value,
+            </if>
+            <if test="menuUri != null">
+                menu_uri,
+            </if>
+            <if test="icon != null">
+                icon,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="orders != null">
+                orders,
+            </if>
+            <if test="pid != null">
+                pid,
+            </if>
+            <if test="deletedFlag != null">
+                deleted_flag,
+            </if>
+            <if test="createId != null">
+                create_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="modifyId != null">
+                modify_id,
+            </if>
+            <if test="modifyTime != null">
+                modify_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="menuName != null">
+                #{menuName,jdbcType=VARCHAR},
+            </if>
+            <if test="menuType != null">
+                #{menuType,jdbcType=TINYINT},
+            </if>
+            <if test="permissionValue != null">
+                #{permissionValue,jdbcType=VARCHAR},
+            </if>
+            <if test="menuUri != null">
+                #{menuUri,jdbcType=VARCHAR},
+            </if>
+            <if test="icon != null">
+                #{icon,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=TINYINT},
+            </if>
+            <if test="orders != null">
+                #{orders,jdbcType=BIGINT},
+            </if>
+            <if test="pid != null">
+                #{pid,jdbcType=INTEGER},
+            </if>
+            <if test="deletedFlag != null">
+                #{deletedFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="createId != null">
+                #{createId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyId != null">
+                #{modifyId,jdbcType=INTEGER},
+            </if>
+            <if test="modifyTime != null">
+                #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="Menu">
+        update sys_menu
+        <set>
+            <if test="menuName != null">
+                menu_name = #{menuName,jdbcType=VARCHAR},
+            </if>
+            <if test="menuType != null">
+                menu_type = #{menuType,jdbcType=TINYINT},
+            </if>
+            <if test="permissionValue != null">
+                permission_value = #{permissionValue,jdbcType=VARCHAR},
+            </if>
+            <if test="menuUri != null">
+                menu_uri = #{menuUri,jdbcType=VARCHAR},
+            </if>
+            <if test="icon != null">
+                icon = #{icon,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=TINYINT},
+            </if>
+            <if test="orders != null">
+                orders = #{orders,jdbcType=BIGINT},
+            </if>
+            <if test="pid != null">
+                pid = #{pid,jdbcType=INTEGER},
+            </if>
+            <if test="deletedFlag != null">
+                deleted_flag = #{deletedFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="createId != null">
+                create_id = #{createId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyId != null">
+                modify_id = #{modifyId,jdbcType=INTEGER},
+            </if>
+            <if test="modifyTime != null">
+                modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="Menu">
+        update sys_menu
+        set menu_name = #{menuName,jdbcType=VARCHAR},
+          menu_type = #{menuType,jdbcType=TINYINT},
+          permission_value = #{permissionValue,jdbcType=VARCHAR},
+          menu_uri = #{menuUri,jdbcType=VARCHAR},
+          icon = #{icon,jdbcType=VARCHAR},
+          status = #{status,jdbcType=TINYINT},
+          orders = #{orders,jdbcType=BIGINT},
+          pid = #{pid,jdbcType=INTEGER},
+          deleted_flag = #{deletedFlag,jdbcType=VARCHAR},
+          create_id = #{createId,jdbcType=INTEGER},
+          create_time = #{createTime,jdbcType=TIMESTAMP},
+          modify_id = #{modifyId,jdbcType=INTEGER},
+          modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="findByRoleId" resultMap="BaseResultMap">
+        select * from sys_menu t
+        where t.id in (
+            select menu_id from sys_role_menu
+            where role_id = #{roleId}
+        )
+    </select>
+
+</mapper>
