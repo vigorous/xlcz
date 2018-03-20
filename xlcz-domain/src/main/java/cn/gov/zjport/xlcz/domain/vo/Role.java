@@ -3,40 +3,35 @@ package cn.gov.zjport.xlcz.domain.vo;
 import cn.gov.zjport.xlcz.common.base.BaseVo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Role extends BaseVo implements Serializable {
 
     /** serialVersionUID */
     private static final long serialVersionUID = -8491750650512914844L;
-    /**
-     * 角色名称
-     */
+    /** 角色名称 */
     private String roleName;
 
-    /**
-     * 角色标题
-     */
+    /** 角色标题 */
     private String roleTitle;
 
-    /**
-     * 角色描述
-     */
+    /** 角色描述 */
     private String roleDesc;
 
-    /**
-     * 排序
-     */
+    /** 排序 */
     private Long orders;
 
-    /**
-     * 部门ID
-     */
+    /** 部门ID */
     private Integer deptId;
 
-    /**
-     * 部门名称
-     */
+    /** 部门名称 */
     private String deptName;
+
+    /** 角色菜单权限 */
+    private List<Menu> list = new ArrayList<>();
+    /** 角色菜单json字符串 */
+    private String menuJson;
 
     /**
      * @return the roleName
@@ -120,5 +115,47 @@ public class Role extends BaseVo implements Serializable {
      */
     public void setDeptName(String deptName) {
         this.deptName = deptName;
+    }
+
+    /**
+     * @return the list
+     */
+    public List<Menu> getList() {
+        return list;
+    }
+
+    /**
+     * @param list the list to set
+     */
+    public void setList(List<Menu> list) {
+        this.list = list;
+    }
+
+    /**
+     * @return the menuJson
+     */
+    public String getMenuJson() {
+        return menuJson;
+    }
+
+    /**
+     * @param menuJson the menuJson to set
+     */
+    public void setMenuJson(String menuJson) {
+        this.menuJson = menuJson;
+    }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "roleName='" + roleName + '\'' +
+                ", roleTitle='" + roleTitle + '\'' +
+                ", roleDesc='" + roleDesc + '\'' +
+                ", orders=" + orders +
+                ", deptId=" + deptId +
+                ", deptName='" + deptName + '\'' +
+                ", list=" + list.toString() +
+                ", menuJson='" + menuJson + '\'' +
+                '}';
     }
 }

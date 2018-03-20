@@ -9,8 +9,10 @@
  ***************************************************************************/
 package cn.gov.zjport.xlcz.webapp.controller.system;
 
+import cn.gov.zjport.xlcz.domain.common.MenuTree;
 import cn.gov.zjport.xlcz.service.system.menu.MenuService;
 import cn.gov.zjport.xlcz.webapp.controller.base.BaseController;
+import com.alibaba.fastjson.JSON;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.slf4j.Logger;
@@ -19,6 +21,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 菜单控制类
@@ -50,5 +55,41 @@ public class MenuController extends BaseController {
         LOGGER.debug("menuJson : {}", menuJson);
         System.out.println(menuJson);
         return menuJson;
+    }
+
+    /**
+     * 查询所有的菜单tree
+     *
+     * @return Object
+     */
+    @RequestMapping(value = "/allMenuTree")
+    @ResponseBody
+    public Object allMenuTree() {
+        List<MenuTree> list = menuService.findAllMenuTree();
+        return JSON.toJSONString(list);
+    }
+
+    /**
+     * 查询所有的菜单tree并选中该角色的菜单权限
+     *
+     * @param roleId 角色ID
+     * @return Object
+     */
+    @RequestMapping(value = "/allRoleMenuTree")
+    @ResponseBody
+    public Object allRoleMenuTree(Integer roleId) {
+        List<MenuTree> list = menuService.findAllRoleMenuTree(roleId);
+        List<MenuTree> menuTrees = new ArrayList<>();
+        for (MenuTree menuTree : list) {
+            if (menuTree.getChecked() == 0) {
+                menuTree.setChecked(null);
+            }
+            if (menuTree.getPid() == null || menuTree.getPid() == 0) {
+                menuTree.setChecked(null);
+            }
+            menuTrees.add(menuTree);
+        }
+        System.out.println(JSON.toJSONString(menuTrees));
+        return JSON.toJSONString(menuTrees);
     }
 }

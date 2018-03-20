@@ -9,6 +9,7 @@
  ***************************************************************************/
 package cn.gov.zjport.xlcz.service.system.menu;
 
+import cn.gov.zjport.xlcz.domain.common.MenuTree;
 import cn.gov.zjport.xlcz.domain.vo.Menu;
 
 import java.util.List;
@@ -36,4 +37,26 @@ public interface MenuService {
      * @return List<Menu>
      */
     public List<Menu> findByRoleId(Integer roleId);
+
+    /**
+     * 查询所有的菜单
+     *
+     * @return List<Menu>
+     */
+    List<Menu> findAllMenu();
+
+    /**
+     * 查询所有的菜单tree
+     *
+     * @return List<MenuTree>
+     */
+    List<MenuTree> findAllMenuTree();
+
+    /**
+     * 查询所有菜单标记角色的所有权限菜单
+     *
+     * @param roleId 角色ID
+     * @return List<MenuTree>
+     */
+    List<MenuTree> findAllRoleMenuTree(Integer roleId);
 }

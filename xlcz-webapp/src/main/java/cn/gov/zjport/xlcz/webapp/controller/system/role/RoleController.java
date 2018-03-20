@@ -13,9 +13,12 @@ import cn.gov.zjport.xlcz.common.base.PageResult;
 import cn.gov.zjport.xlcz.common.context.Const;
 import cn.gov.zjport.xlcz.common.utils.JSONUtil;
 import cn.gov.zjport.xlcz.common.utils.PageUtil;
+import cn.gov.zjport.xlcz.domain.common.MenuTree;
 import cn.gov.zjport.xlcz.domain.json.RoleJo;
 import cn.gov.zjport.xlcz.domain.so.RoleSo;
+import cn.gov.zjport.xlcz.domain.vo.Menu;
 import cn.gov.zjport.xlcz.domain.vo.Role;
+import cn.gov.zjport.xlcz.service.system.menu.MenuService;
 import cn.gov.zjport.xlcz.service.system.role.RoleService;
 import cn.gov.zjport.xlcz.webapp.controller.base.BaseController;
 import com.alibaba.fastjson.JSON;
@@ -26,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -42,6 +46,10 @@ public class RoleController extends BaseController {
     /** 角色服务 */
     @Autowired
     private RoleService roleService;
+
+    /** 菜单服务 */
+    @Autowired
+    private MenuService menuService;
 
     /**
      * 角色下拉框
@@ -125,6 +133,48 @@ public class RoleController extends BaseController {
     @RequestMapping(value = "/editRole")
     @ResponseBody
     public Object editRole(Role role) {
+        System.out.println(role.toString());
+        List<Menu> menus = JSON.parseArray(role.getMenuJson(), Menu.class);
+        for (Menu menu : menus) {
+            System.out.println(menu.toString());
+        }
         return "";
+    }
+
+    /**
+     * 删除角色
+     *
+     * @param ids 角色ID集合
+     * @return Object
+     */
+    @RequestMapping(value = "/delRoles")
+    @ResponseBody
+    public Object delRoles(String[] ids) {
+        return "";
+    }
+
+    /**
+     * 角色菜单权限
+     *
+     * @param roleId 角色ID
+     * @return Object
+     */
+    @RequestMapping(value = "/roleMenuTree")
+    @ResponseBody
+    public Object roleMenuTree(Integer roleId) {
+        //所有的菜单tree
+        List<MenuTree> allMenuTree = menuService.findAllMenuTree();
+        //角色菜单权限list
+        List<Menu> list = menuService.findByRoleId(roleId);
+
+        List<MenuTree> menuTrees = new ArrayList<>();
+        for (Menu menu : list) {
+            MenuTree menuTree = new MenuTree();
+            menuTree.setId(menu.getId());
+            menuTree.setMenuName(menu.getMenuName());
+            menuTree.setPid(menu.getPid());
+            menuTrees.add(menuTree);
+        }
+        return JSON.toJSONString(menuTrees);
     }
 }

@@ -75,7 +75,7 @@ function toEdit() {
             url: _G.baseUrl + "/role/toEdit.do?id=" + role.id,
             title: "修改",
             width: 800,
-            height: 500,
+            height: 700,
             onload: function () {
                 var iframe = this.getIFrameEl();
             },
@@ -94,6 +94,21 @@ function edit() {
         return;
     }
     var data = form.getData();
+    console.log("data : ", data);
+
+    var tree = mini.get("tree");
+    var nodes = tree.getCheckedNodes(true);
+    console.log("nodes : ", nodes);
+
+    var list = new Array();
+    for (var i = 0; i < nodes.length; i++) {
+        var menu = createMenu(nodes[i].id, nodes[i].menuName);
+        list.add(menu);
+    }
+    var menuJson = JSON.stringify(list);
+    data.menuJson = menuJson;
+    console.log("data : ", data);
+    debugger;
 
     $.ajax({
         url: _G.baseUrl + "/role/editRole.do",

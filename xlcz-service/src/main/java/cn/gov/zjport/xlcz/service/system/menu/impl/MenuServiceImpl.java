@@ -10,6 +10,7 @@
 package cn.gov.zjport.xlcz.service.system.menu.impl;
 
 import cn.gov.zjport.xlcz.dao.system.MenuMapper;
+import cn.gov.zjport.xlcz.domain.common.MenuTree;
 import cn.gov.zjport.xlcz.domain.vo.Menu;
 import cn.gov.zjport.xlcz.service.system.menu.MenuService;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * ${desc}
+ * 菜单服务
  *
  * @author <a href="mailto:cjun@zjport.gov.cn">cjun</a>
  * @version $Id$
@@ -50,5 +51,36 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public List<Menu> findByRoleId(Integer roleId) {
         return menuMapper.findByRoleId(roleId);
+    }
+
+    /**
+     * 查询所有的菜单
+     *
+     * @return List<Menu>
+     */
+    @Override
+    public List<Menu> findAllMenu() {
+        return menuMapper.findAllMenu();
+    }
+
+    /**
+     * 查询所有的菜单tree
+     *
+     * @return List<MenuTree>
+     */
+    @Override
+    public List<MenuTree> findAllMenuTree() {
+        return menuMapper.findAllMenuTree();
+    }
+
+    /**
+     * 查询所有菜单标记角色的所有权限菜单
+     *
+     * @param roleId 角色ID
+     * @return List<MenuTree>
+     */
+    @Override
+    public List<MenuTree> findAllRoleMenuTree(Integer roleId) {
+        return menuMapper.findAllRoleMenuTree(roleId);
     }
 }

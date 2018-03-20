@@ -59,3 +59,10 @@ function showMsgBox(title, message, messageType, callback) {
 function closeWindow() {
     window.CloseOwnerWindow("cancel");
 }
+
+function createMenu(id, menuName) {
+    var menu = new Object;
+    menu.id = id;
+    menu.menuName = menuName;
+    return menu;
+}

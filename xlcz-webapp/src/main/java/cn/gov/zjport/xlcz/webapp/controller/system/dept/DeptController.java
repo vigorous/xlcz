@@ -147,6 +147,7 @@ public class DeptController extends BaseController {
     /**
      * 删除部门
      *
+     * @param ids 部门ID集合
      * @return String
      */
     @RequestMapping(value = "/delDept")
