@@ -35,22 +35,19 @@
         delete from sys_role
         where id = #{id,jdbcType=INTEGER}
     </delete>
-    <insert id="insert" parameterType="Role">
-        insert into sys_role (id, role_name, role_title,
+    <insert id="insert" parameterType="Role" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_role (role_name, role_title,
           role_desc, orders, dept_id,
           deleted_flag, create_id, create_time,
           modify_id, modify_time)
-        values (#{id,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}, #{roleTitle,jdbcType=VARCHAR},
+        values (#{roleName,jdbcType=VARCHAR}, #{roleTitle,jdbcType=VARCHAR},
           #{roleDesc,jdbcType=VARCHAR}, #{orders,jdbcType=BIGINT}, #{deptId,jdbcType=INTEGER},
           #{deletedFlag,jdbcType=VARCHAR}, #{createId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
           #{modifyId,jdbcType=INTEGER}, #{modifyTime,jdbcType=TIMESTAMP})
     </insert>
-    <insert id="insertSelective" parameterType="Role">
+    <insert id="insertSelective" parameterType="Role" useGeneratedKeys="true" keyProperty="id">
         insert into sys_role
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                id,
-            </if>
             <if test="roleName != null">
                 role_name,
             </if>
@@ -83,9 +80,6 @@
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                #{id,jdbcType=INTEGER},
-            </if>
             <if test="roleName != null">
                 #{roleName,jdbcType=VARCHAR},
             </if>
@@ -169,7 +163,16 @@
         where id = #{id,jdbcType=INTEGER}
     </update>
 
-    <!-- 查询部门角色 -->
+    <!-- 查询部门角色Role对象 -->
+    <select id="findByDeptId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select * from sys_role
+        where 1=1
+        <if test="deptId != null and deptId != ''">
+            and dept_id = #{deptId}
+        </if>
+    </select>
+
+    <!-- 查询部门角色RoleJo对象 -->
     <select id="findByDeptId" parameterType="java.lang.Integer" resultMap="BaseRoleJo">
         select * from sys_role
         where 1=1

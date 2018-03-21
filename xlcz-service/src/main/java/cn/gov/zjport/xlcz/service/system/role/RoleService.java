@@ -3,6 +3,7 @@ package cn.gov.zjport.xlcz.service.system.role;
 import cn.gov.zjport.xlcz.domain.json.RoleJo;
 import cn.gov.zjport.xlcz.domain.so.RoleSo;
 import cn.gov.zjport.xlcz.domain.vo.Role;
+import cn.gov.zjport.xlcz.service.system.base.BaseService;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
  * @version $Id$
  * @since 1.0
  */
-public interface RoleService {
+public interface RoleService extends BaseService {
     /**
      * 通过角色ID查询角色信息
      *
@@ -22,6 +23,14 @@ public interface RoleService {
      * @return Role
      */
     Role findRoleById(Integer id);
+
+    /**
+     * 查询部门所有角色
+     *
+     * @param deptId 部门ID
+     * @return List<Role>
+     */
+    List<Role> findRolesByDeptId(Integer deptId);
 
     /**
      * 查询部门角色
@@ -38,4 +47,18 @@ public interface RoleService {
      * @return PageInfo<Role>
      */
     PageInfo<Role> findByPage(RoleSo roleSo);
+
+    /**
+     * 新增角色和角色菜单权限
+     *
+     * @param role 角色
+     */
+    void insertRoleAndAuth(Role role) throws Exception;
+
+    /**
+     * 修改角色和角色菜单权限
+     *
+     * @param role 角色
+     */
+    void updateRoleAuth(Role role);
 }

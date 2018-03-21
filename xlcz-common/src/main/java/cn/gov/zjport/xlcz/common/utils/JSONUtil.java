@@ -121,6 +121,17 @@ public class JSONUtil {
     }
 
     /**
+     * 返回失败的结果集
+     *
+     * @param msg 错误信息
+     * @return String jsonStr
+     */
+    public static String failJsonResult(String msg) {
+        BaseResult baseResult = new BaseResult(Const.CODE_FAIL, msg, null);
+        return JSON.toJSONString(baseResult);
+    }
+
+    /**
      * 分页结果集转换成json字符串
      *
      * @param pageResult 分页结果集

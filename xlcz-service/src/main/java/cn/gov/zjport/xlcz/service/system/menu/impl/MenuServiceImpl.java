@@ -28,6 +28,7 @@ import java.util.List;
 @Service
 public class MenuServiceImpl implements MenuService {
 
+    /** 菜单mapper */
     @Resource
     private MenuMapper menuMapper;
 

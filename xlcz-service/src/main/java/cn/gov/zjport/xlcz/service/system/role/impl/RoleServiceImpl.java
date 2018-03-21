@@ -9,16 +9,23 @@
  ***************************************************************************/
 package cn.gov.zjport.xlcz.service.system.role.impl;
 
+import cn.gov.zjport.xlcz.common.exception.CzException;
 import cn.gov.zjport.xlcz.dao.system.RoleMapper;
+import cn.gov.zjport.xlcz.dao.system.RoleMenuMapper;
 import cn.gov.zjport.xlcz.domain.json.RoleJo;
 import cn.gov.zjport.xlcz.domain.so.RoleSo;
 import cn.gov.zjport.xlcz.domain.vo.Role;
+import cn.gov.zjport.xlcz.domain.vo.RoleMenu;
+import cn.gov.zjport.xlcz.service.system.base.impl.BaseServiceImpl;
 import cn.gov.zjport.xlcz.service.system.role.RoleService;
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,10 +36,15 @@ import java.util.List;
  * @since 1.0
  */
 @Service
-public class RoleServiceImpl implements RoleService {
+public class RoleServiceImpl extends BaseServiceImpl implements RoleService {
 
+    /** 角色mapper */
     @Resource
     private RoleMapper roleMapper;
+
+    /** 角色菜单mapper */
+    @Resource
+    private RoleMenuMapper roleMenuMapper;
 
     /**
      * 通过角色ID查询角色信息
@@ -43,6 +55,17 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public Role findRoleById(Integer id) {
         return roleMapper.selectByPrimaryKey(id);
+    }
+
+    /**
+     * 查询部门所有角色
+     *
+     * @param deptId 部门ID
+     * @return List<Role>
+     */
+    @Override
+    public List<Role> findRolesByDeptId(Integer deptId) {
+        return roleMapper.findRolesByDeptId(deptId);
     }
 
     /**
@@ -69,4 +92,52 @@ public class RoleServiceImpl implements RoleService {
         PageInfo<Role> pageInfo = new PageInfo(list);
         return pageInfo;
     }
+
+    /**
+     * 新增角色和角色菜单权限
+     *
+     * @param role 角色
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void insertRoleAndAuth(Role role) {
+        //根据部门ID查询部门的所有角色，判断新增的角色名称是否存在
+        List<Role> roleList = roleMapper.findRolesByDeptId(role.getDeptId());
+        for (Role r : roleList) {
+            if (r.getRoleName().equals(role.getRoleName())) {
+                throw new CzException("部门中角色名称已存在");
+            }
+        }
+        //新增角色
+        roleMapper.insertSelective(role);
+        //新增角色菜单权限
+        List<RoleMenu> roleMenus = JSON.parseArray(role.getRoleMenuJson(), RoleMenu.class);
+    }
+
+    /**
+     * 修改角色和角色菜单权限
+     *
+     * @param role 角色
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void updateRoleAuth(Role role) {
+        /* 修改角色信息 */
+        role.setModifyId(getSessionUserId());
+        role.setModifyTime(new Date());
+        roleMapper.updateByPrimaryKeySelective(role);
+
+        /* 修改角色菜单权限 */
+        List<RoleMenu> roleMenus = JSON.parseArray(role.getRoleMenuJson(), RoleMenu.class);
+        //删除角色原来的菜单权限
+        roleMenuMapper.deleteByRoleId(role.getId());
+        //新增修改之后的菜单权限
+        for (RoleMenu roleMenu : roleMenus) {
+            roleMenu.setDeletedFlag("0");
+            roleMenu.setCreateId(getSessionUserId());
+            roleMenu.setCreateTime(new Date());
+            roleMenuMapper.insertSelective(roleMenu);
+        }
+    }
+
 }

@@ -60,9 +60,28 @@ function closeWindow() {
     window.CloseOwnerWindow("cancel");
 }
 
+/**
+ * 创建menu对象
+ * @param id
+ * @param menuName
+ * @returns {Object}
+ */
 function createMenu(id, menuName) {
     var menu = new Object;
     menu.id = id;
     menu.menuName = menuName;
     return menu;
+}
+
+/**
+ * 创建角色菜单对象
+ * @param roleId 角色ID
+ * @param menuId 菜单ID
+ * @returns {Object}
+ */
+function createRoleMenu(roleId, menuId) {
+    var roleMenu = new Object;
+    roleMenu.roleId = roleId;
+    roleMenu.menuId = menuId;
+    return roleMenu;
 }

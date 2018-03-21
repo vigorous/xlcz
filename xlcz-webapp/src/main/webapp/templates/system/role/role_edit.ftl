@@ -56,18 +56,13 @@
                             <div class="group-hr"></div>
                         </div>
                     </div>
-                    <form action="" class="form" id="form2">
+                    <div>
                         <ul id="tree" class="mini-tree" url="${baseUrl}/menu/allRoleMenuTree.do?roleId=${r.id!}"
                             style="width:780px;height:350px;padding:5px;" showTreeIcon="true" textField="menuName"
                             idField="id" parentField="pid" resultAsTree="false" showCheckBox="true"
-                            checkRecursive="true" expandOnLoad="true" onbeforenodecheck="onBeforeNodeCheck"
-                            allowSelect="false" enableHotTrack="false">
+                            checkRecursive="true" expandOnLoad="true" allowSelect="false" enableHotTrack="false">
                         </ul>
-
-                    <#--<ul id="tree3" class="mini-tree" style="width:300px;padding:5px;"
-                        showTreeIcon="true" textField="text" idField="id" showCheckBox="true">
-                    </ul>-->
-                    </form>
+                    </div>
                     <div class="button-group-center">
                         <input class="btn" type="button" value="确定" onclick="edit()"/>
                         <input class="btn-primary" type="button" value="取消" onclick="closeWindow()"/>
@@ -86,40 +81,6 @@
 <script>
     /** 解析miniui控件 */
     mini.parse();
-
-    function onBeforeNodeCheck(e) {
-        var tree = e.sender;
-        var node = e.node;
-        if (tree.hasChildren(node)) {
-            //e.cancel = true;
-        }
-    }
-
-    /*var tree3 = mini.get("tree3");
-    tree3.loadData([
-        { id: "lists", text: "Lists", expanded: false,
-            children: [
-                { id: "datagrid", text: "DataGrid" },
-                { id: "tree", text: "Tree" },
-                { id: "treegrid", text: "TreeGrid " }
-            ]
-        },
-        { id: "layouts", text: "Layouts", expanded: false,
-            children: [
-                { id: "panel", text: "Panel" },
-                { id: "splitter", text: "Splitter" },
-                { id: "layout", text: "Layout " }
-            ]
-        },
-        { id: "navigations", text: "Navigations", expanded: false,
-            children: [
-                { id: "pager", text: "Pager",checked:1 },
-                { id: "tabs", text: "Tabs",checked:0 },
-                { id: "navbar", text: "NavBar" },
-                { id: "menu", text: "Menu" }
-            ]
-        }
-    ]);*/
 </script>
 </body>
 

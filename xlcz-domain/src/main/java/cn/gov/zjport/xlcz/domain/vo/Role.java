@@ -28,10 +28,8 @@ public class Role extends BaseVo implements Serializable {
     /** 部门名称 */
     private String deptName;
 
-    /** 角色菜单权限 */
-    private List<Menu> list = new ArrayList<>();
     /** 角色菜单json字符串 */
-    private String menuJson;
+    private String roleMenuJson;
 
     /**
      * @return the roleName
@@ -118,44 +116,16 @@ public class Role extends BaseVo implements Serializable {
     }
 
     /**
-     * @return the list
+     * @return the roleMenuJson
      */
-    public List<Menu> getList() {
-        return list;
+    public String getRoleMenuJson() {
+        return roleMenuJson;
     }
 
     /**
-     * @param list the list to set
+     * @param roleMenuJson the roleMenuJson to set
      */
-    public void setList(List<Menu> list) {
-        this.list = list;
-    }
-
-    /**
-     * @return the menuJson
-     */
-    public String getMenuJson() {
-        return menuJson;
-    }
-
-    /**
-     * @param menuJson the menuJson to set
-     */
-    public void setMenuJson(String menuJson) {
-        this.menuJson = menuJson;
-    }
-
-    @Override
-    public String toString() {
-        return "Role{" +
-                "roleName='" + roleName + '\'' +
-                ", roleTitle='" + roleTitle + '\'' +
-                ", roleDesc='" + roleDesc + '\'' +
-                ", orders=" + orders +
-                ", deptId=" + deptId +
-                ", deptName='" + deptName + '\'' +
-                ", list=" + list.toString() +
-                ", menuJson='" + menuJson + '\'' +
-                '}';
+    public void setRoleMenuJson(String roleMenuJson) {
+        this.roleMenuJson = roleMenuJson;
     }
 }

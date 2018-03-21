@@ -38,12 +38,26 @@ function toAdd() {
 
 /** 新增 */
 function add() {
+    //校验表单数据
     var form = new mini.Form("#addForm");
     var flag = form.validate();
     if (!flag) {
         return;
     }
+    //获取表单数据
     var data = form.getData();
+
+    //获取树形数据
+    var tree = mini.get("tree");
+    var nodes = tree.getCheckedNodes(true);
+    //角色菜单
+    var roleMenuArr = new Array();
+    for (var i = 0; i < nodes.length; i++) {
+        var roleMenu = createRoleMenu(roleId, nodes[i].id);
+        roleMenuArr.add(roleMenu);
+    }
+    var roleMenuJson = JSON.stringify(roleMenuArr);
+    data.roleMenuJson = roleMenuJson;
 
     $.ajax({
         url: _G.baseUrl + "/role/addRole.do",
@@ -54,7 +68,9 @@ function add() {
             if (data.code == 0) {
                 showMsgBox('新增', msg.message, 'fail');
             } else {
-                closeWindow();
+                showMsgBox('新增', msg.message, 'success', function () {
+                    closeWindow();
+                });
             }
 
         },
@@ -88,34 +104,40 @@ function toEdit() {
 
 /** 编辑 */
 function edit() {
+    //校验表单数据
     var form = new mini.Form("#editForm");
     var flag = form.validate();
     if (!flag) {
         return;
     }
     var data = form.getData();
-    console.log("data : ", data);
+    var roleId = data.id;//角色ID
 
+    //获取树形数据
     var tree = mini.get("tree");
     var nodes = tree.getCheckedNodes(true);
-    console.log("nodes : ", nodes);
-
-    var list = new Array();
+    //角色菜单
+    var roleMenuArr = new Array();
     for (var i = 0; i < nodes.length; i++) {
-        var menu = createMenu(nodes[i].id, nodes[i].menuName);
-        list.add(menu);
+        var roleMenu = createRoleMenu(roleId, nodes[i].id);
+        roleMenuArr.add(roleMenu);
     }
-    var menuJson = JSON.stringify(list);
-    data.menuJson = menuJson;
-    console.log("data : ", data);
-    debugger;
+    var roleMenuJson = JSON.stringify(roleMenuArr);
+    data.roleMenuJson = roleMenuJson;
 
     $.ajax({
         url: _G.baseUrl + "/role/editRole.do",
         data: data,
         type: "post",
-        success: function (msg) {
-            closeWindow();
+        success: function (data) {
+            data = mini.decode(data);
+            if (data.code == 0) {
+                showMsgBox('修改', msg.message, 'fail');
+            } else {
+                showMsgBox('修改', msg.message, 'success', function () {
+                    closeWindow();
+                });
+            }
         },
         error: function (jqXHR, textStatus, errorThrown) {
         }

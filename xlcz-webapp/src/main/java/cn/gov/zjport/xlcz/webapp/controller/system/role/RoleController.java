@@ -11,6 +11,7 @@ package cn.gov.zjport.xlcz.webapp.controller.system.role;
 
 import cn.gov.zjport.xlcz.common.base.PageResult;
 import cn.gov.zjport.xlcz.common.context.Const;
+import cn.gov.zjport.xlcz.common.context.SystemContext;
 import cn.gov.zjport.xlcz.common.utils.JSONUtil;
 import cn.gov.zjport.xlcz.common.utils.PageUtil;
 import cn.gov.zjport.xlcz.domain.common.MenuTree;
@@ -106,7 +107,12 @@ public class RoleController extends BaseController {
     @RequestMapping(value = "/addRole")
     @ResponseBody
     public Object addRole(Role role) {
-        return "";
+        try {
+            roleService.insertRoleAndAuth(role);
+        } catch (Exception e) {
+            return JSONUtil.failJsonResult(e.getMessage());
+        }
+        return JSONUtil.jsonResult(SystemContext.MessageType.SAVE_SUCCESS.getValue());
     }
 
     /**
@@ -133,12 +139,13 @@ public class RoleController extends BaseController {
     @RequestMapping(value = "/editRole")
     @ResponseBody
     public Object editRole(Role role) {
-        System.out.println(role.toString());
-        List<Menu> menus = JSON.parseArray(role.getMenuJson(), Menu.class);
-        for (Menu menu : menus) {
-            System.out.println(menu.toString());
+        try {
+            roleService.updateRoleAuth(role);
+        } catch (Exception e) {
+            LOGGER.debug(e.getMessage());
+            return JSONUtil.jsonResult(SystemContext.MessageType.MODIFY_FAIL.getValue());
         }
-        return "";
+        return JSONUtil.jsonResult(SystemContext.MessageType.MODIFY_SUCCESS.getValue());
     }
 
     /**

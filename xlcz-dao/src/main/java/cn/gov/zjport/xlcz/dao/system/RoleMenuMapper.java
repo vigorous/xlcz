@@ -50,4 +50,12 @@ public interface RoleMenuMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(RoleMenu record);
+
+    /**
+     * 删除角色的菜单权限
+     *
+     * @param roleId 角色ID
+     * @return int
+     */
+    int deleteByRoleId(Integer roleId);
 }
