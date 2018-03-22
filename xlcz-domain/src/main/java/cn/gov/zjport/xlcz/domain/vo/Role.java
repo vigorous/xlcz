@@ -3,8 +3,6 @@ package cn.gov.zjport.xlcz.domain.vo;
 import cn.gov.zjport.xlcz.common.base.BaseVo;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Role extends BaseVo implements Serializable {
 
@@ -13,14 +11,8 @@ public class Role extends BaseVo implements Serializable {
     /** 角色名称 */
     private String roleName;
 
-    /** 角色标题 */
-    private String roleTitle;
-
     /** 角色描述 */
     private String roleDesc;
-
-    /** 排序 */
-    private Long orders;
 
     /** 部门ID */
     private Integer deptId;
@@ -46,20 +38,6 @@ public class Role extends BaseVo implements Serializable {
     }
 
     /**
-     * @return the roleTitle
-     */
-    public String getRoleTitle() {
-        return roleTitle;
-    }
-
-    /**
-     * @param roleTitle the roleTitle to set
-     */
-    public void setRoleTitle(String roleTitle) {
-        this.roleTitle = roleTitle;
-    }
-
-    /**
      * @return the roleDesc
      */
     public String getRoleDesc() {
@@ -71,20 +49,6 @@ public class Role extends BaseVo implements Serializable {
      */
     public void setRoleDesc(String roleDesc) {
         this.roleDesc = roleDesc;
-    }
-
-    /**
-     * @return the orders
-     */
-    public Long getOrders() {
-        return orders;
-    }
-
-    /**
-     * @param orders the orders to set
-     */
-    public void setOrders(Long orders) {
-        this.orders = orders;
     }
 
     /**
