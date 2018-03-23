@@ -9,9 +9,13 @@
  ***************************************************************************/
 package cn.gov.zjport.xlcz.service.system.dept.impl;
 
+import cn.gov.zjport.xlcz.common.exception.CzException;
 import cn.gov.zjport.xlcz.dao.system.DeptMapper;
+import cn.gov.zjport.xlcz.dao.system.RoleMapper;
 import cn.gov.zjport.xlcz.domain.json.DeptJo;
 import cn.gov.zjport.xlcz.domain.vo.Dept;
+import cn.gov.zjport.xlcz.domain.vo.Role;
+import cn.gov.zjport.xlcz.service.system.base.impl.BaseServiceImpl;
 import cn.gov.zjport.xlcz.service.system.dept.DeptService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -19,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,11 +34,15 @@ import java.util.List;
  * @since 1.0
  */
 @Service
-public class DeptServiceImpl implements DeptService {
+public class DeptServiceImpl extends BaseServiceImpl implements DeptService {
 
     /** 部门mapper */
     @Resource
     private DeptMapper deptMapper;
+
+    /** 角色Mapper */
+    @Resource
+    private RoleMapper roleMapper;
 
     /**
      * 分页查询部门
@@ -69,6 +78,11 @@ public class DeptServiceImpl implements DeptService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int updateById(Dept dept) {
+        //修改人
+        dept.setModifyId(getSessionUserId());
+        //修改时间
+        dept.setModifyTime(new Date());
+        //修改部门
         return deptMapper.updateByPrimaryKeySelective(dept);
     }
 
@@ -95,6 +109,12 @@ public class DeptServiceImpl implements DeptService {
     public int deleteById(String[] ids) {
         for (String id : ids) {
             Integer key = Integer.parseInt(id);
+            //判断该部门中是否有角色
+            List<Role> roles = roleMapper.findRolesByDeptId(key);
+            if (roles != null && roles.size() > 0) {
+                throw new CzException("部门中有角色，不能删除!");
+            }
+            //根据部门ID删除部门
             deptMapper.deleteByPrimaryKey(key);
         }
         return ids.length;

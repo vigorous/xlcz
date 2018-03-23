@@ -12,6 +12,7 @@ package cn.gov.zjport.xlcz.service.system.role.impl;
 import cn.gov.zjport.xlcz.common.exception.CzException;
 import cn.gov.zjport.xlcz.dao.system.RoleMapper;
 import cn.gov.zjport.xlcz.dao.system.RoleMenuMapper;
+import cn.gov.zjport.xlcz.dao.system.UserMapper;
 import cn.gov.zjport.xlcz.domain.json.RoleJo;
 import cn.gov.zjport.xlcz.domain.so.RoleSo;
 import cn.gov.zjport.xlcz.domain.vo.Role;
@@ -45,6 +46,10 @@ public class RoleServiceImpl extends BaseServiceImpl implements RoleService {
     /** 角色菜单mapper */
     @Resource
     private RoleMenuMapper roleMenuMapper;
+
+    /** 用户Mapper */
+    @Resource
+    private UserMapper userMapper;
 
     /**
      * 通过角色ID查询角色信息
@@ -137,6 +142,24 @@ public class RoleServiceImpl extends BaseServiceImpl implements RoleService {
             roleMenu.setCreateId(getSessionUserId());
             roleMenu.setCreateTime(new Date());
             roleMenuMapper.insertSelective(roleMenu);
+        }
+    }
+
+    /**
+     * 逻辑删除角色
+     *
+     * @param ids 角色ID集合
+     */
+    @Override
+    public void deleteByIds(String[] ids) {
+        for (String id : ids) {
+            Integer key = Integer.parseInt(id);
+            //判断该角色是否有用户在使用
+            int count = userMapper.countUsersByRoleId(key);
+            if (count > 0) {
+                throw new CzException("该角色下有用户在使用!");
+            }
+            roleMapper.deleteById(key);
         }
     }
 

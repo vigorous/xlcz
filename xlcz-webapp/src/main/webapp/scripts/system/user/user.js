@@ -129,8 +129,15 @@ function del() {
                 var id = ids.join(",");
                 $.ajax({
                     url: _G.baseUrl + "/user/delUsers.do?ids=" + id,
-                    success: function (text) {
-                        grid.reload();
+                    success: function (data) {
+                        data = mini.decode(data);
+                        if (data.code == 0) {
+                            showMsgBox('删除', data.message, 'fail');
+                        } else {
+                            showMsgBox('删除', data.message, 'success', function () {
+                                grid.reload();
+                            });
+                        }
                     },
                     error: function () {
                     }

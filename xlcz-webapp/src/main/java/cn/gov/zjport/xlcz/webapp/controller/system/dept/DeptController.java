@@ -153,7 +153,12 @@ public class DeptController extends BaseController {
     @RequestMapping(value = "/delDept")
     @ResponseBody
     public String delDept(String[] ids) {
-        int i = deptService.deleteById(ids);
+        try {
+            deptService.deleteById(ids);
+        } catch (Exception e) {
+            LOGGER.error(e.toString(), e);
+            return JSONUtil.failJsonResult(e.getMessage());
+        }
         return JSONUtil.jsonResult(SystemContext.DELETE_SUCCESS);
     }
 

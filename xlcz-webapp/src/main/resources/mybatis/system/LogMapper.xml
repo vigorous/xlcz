@@ -38,22 +38,9 @@
         delete from sys_log
         where id = #{id,jdbcType=INTEGER}
     </delete>
-    <insert id="insert" parameterType="Log" useGeneratedKeys="true" keyProperty="id">
-        insert into sys_log (user_id, role_id,
-          ip, login_time, deleted_flag,
-          create_id, create_time, modify_id,
-          modify_time)
-        values (#{userId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER},
-          #{ip,jdbcType=VARCHAR}, #{loginTime,jdbcType=TIMESTAMP}, #{deletedFlag,jdbcType=VARCHAR},
-          #{createId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{modifyId,jdbcType=INTEGER},
-          #{modifyTime,jdbcType=TIMESTAMP})
-    </insert>
     <insert id="insertSelective" parameterType="Log" useGeneratedKeys="true" keyProperty="id">
         insert into sys_log
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <!--<if test="id != null">
-                id,
-            </if>-->
             <if test="userId != null">
                 user_id,
             </if>
@@ -143,19 +130,6 @@
                 modify_time = #{modifyTime,jdbcType=TIMESTAMP},
             </if>
         </set>
-        where id = #{id,jdbcType=INTEGER}
-    </update>
-    <update id="updateByPrimaryKey" parameterType="Log">
-        update sys_log
-        set user_id = #{userId,jdbcType=INTEGER},
-          role_id = #{roleId,jdbcType=INTEGER},
-          ip = #{ip,jdbcType=VARCHAR},
-          login_time = #{loginTime,jdbcType=TIMESTAMP},
-          deleted_flag = #{deletedFlag,jdbcType=VARCHAR},
-          create_id = #{createId,jdbcType=INTEGER},
-          create_time = #{createTime,jdbcType=TIMESTAMP},
-          modify_id = #{modifyId,jdbcType=INTEGER},
-          modify_time = #{modifyTime,jdbcType=TIMESTAMP}
         where id = #{id,jdbcType=INTEGER}
     </update>
     <!-- 分页查询部门 -->

@@ -6,17 +6,37 @@ import cn.gov.zjport.xlcz.domain.vo.Dept;
 import java.util.List;
 
 public interface DeptMapper {
+    /**
+     * 物理删除
+     *
+     * @param id 主键
+     * @return int
+     */
     int deleteByPrimaryKey(Integer id);
 
-    int insert(Dept record);
+    /**
+     * 新增
+     *
+     * @param dept 部门
+     * @return int
+     */
+    int insertSelective(Dept dept);
 
-    int insertSelective(Dept record);
-
+    /**
+     * 通过主键查询
+     *
+     * @param id 主键
+     * @return Dept
+     */
     Dept selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(Dept record);
-
-    int updateByPrimaryKey(Dept record);
+    /**
+     * 修改
+     *
+     * @param dept 部门
+     * @return int
+     */
+    int updateByPrimaryKeySelective(Dept dept);
 
     /**
      * 分页查询部门

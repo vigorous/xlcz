@@ -61,4 +61,11 @@ public interface RoleService extends BaseService {
      * @param role 角色
      */
     void updateRoleAuth(Role role);
+
+    /**
+     * 逻辑删除角色
+     *
+     * @param ids 角色ID集合
+     */
+    void deleteByIds(String[] ids);
 }

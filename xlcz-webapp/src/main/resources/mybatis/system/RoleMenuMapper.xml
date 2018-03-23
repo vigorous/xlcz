@@ -24,14 +24,6 @@
         delete from sys_role_menu
         where id = #{id,jdbcType=INTEGER}
     </delete>
-    <insert id="insert" parameterType="RoleMenu" useGeneratedKeys="true" keyProperty="id">
-        insert into sys_role_menu (role_id, menu_id,
-          deleted_flag, create_id, create_time,
-          modify_id, modify_time)
-        values (#{roleId,jdbcType=INTEGER}, #{menuId,jdbcType=INTEGER},
-          #{deletedFlag,jdbcType=VARCHAR}, #{createId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
-          #{modifyId,jdbcType=INTEGER}, #{modifyTime,jdbcType=TIMESTAMP})
-    </insert>
     <insert id="insertSelective" parameterType="RoleMenu" useGeneratedKeys="true" keyProperty="id">
         insert into sys_role_menu
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -106,17 +98,6 @@
                 modify_time = #{modifyTime,jdbcType=TIMESTAMP},
             </if>
         </set>
-        where id = #{id,jdbcType=INTEGER}
-    </update>
-    <update id="updateByPrimaryKey" parameterType="RoleMenu">
-        update sys_role_menu
-        set role_id = #{roleId,jdbcType=INTEGER},
-          menu_id = #{menuId,jdbcType=INTEGER},
-          deleted_flag = #{deletedFlag,jdbcType=VARCHAR},
-          create_id = #{createId,jdbcType=INTEGER},
-          create_time = #{createTime,jdbcType=TIMESTAMP},
-          modify_id = #{modifyId,jdbcType=INTEGER},
-          modify_time = #{modifyTime,jdbcType=TIMESTAMP}
         where id = #{id,jdbcType=INTEGER}
     </update>
 

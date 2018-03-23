@@ -60,22 +60,14 @@ function addDept() {
         url: _G.baseUrl + "/dept/addDept.do",
         data: data,
         type: "post",
-        success: function (msg) {
-            msg = mini.decode(msg);
-            console.log(msg.code);
-            if (msg.code == 2 || msg == 0) {
-                parent.mini.showMessageBox({
-                    title: '新增',
-                    buttons: ["ok", "cancel"],
-                    html: '<div class="messageBox"><img src="../images/fail.png"/><span>' + msg.message + '</span></div>',
-                    callback: function (action) {
-                        if (action == 'ok') { //删除
-                            //closeWindow();
-                        }
-                    }
-                });
+        success: function (data) {
+            data = mini.decode(data);
+            if (data.code == 2 || data == 0) {
+                showMsgBox('新增', data.message, 'fail');
             } else {
-                closeWindow();
+                showMsgBox('新增', data.message, 'success', function () {
+                    closeWindow();
+                });
             }
 
         },
@@ -89,16 +81,7 @@ function addDept() {
 function toEdit() {
     var rows = grid.getSelecteds();
     if (rows.length <= 0 || rows.length > 1) {//未选中一条记录
-        parent.mini.showMessageBox({
-            title: '修改',
-            buttons: ["ok", "cancel"],
-            html: '<div class="messageBox"><img src="../images/fail.png"/><span>请选择一条记录!</span></div>',
-            callback: function (action) {
-                if (action == 'ok') { //删除
-
-                }
-            }
-        });
+        showMsgBox('修改', '请选择一条记录!');
     } else {
         var dept = rows[0];
         mini.open({
@@ -149,41 +132,33 @@ function delDept() {
     var rows = grid.getSelecteds();
     console.table(rows);
     if (rows.length > 0) {
-        parent.mini.showMessageBox({
-            title: '删除',
-            buttons: ["ok", "cancel"],
-            html: '<div class="messageBox"><img src="../images/mark.png"/><span>你确定要删信息吗，删除不可恢复?</span></div>',
-            callback: function (action) {
-                if (action == 'ok') { //删除
-                    var ids = [];
-                    for (var i = 0; i < rows.length; i++) {
-                        var row = rows[i];
-                        ids.push(row.id);
-                    }
-                    var id = ids.join(",");
-                    //grid.loading("操作中，请稍后...")
-                    $.ajax({
-                        url: _G.baseUrl + "/dept/delDept.do?ids=" + id,
-                        success: function (text) {
-                            grid.reload();
-                        },
-                        error: function () {
-                        }
-                    });
+        showMsgBox("删除", "你确定要删信息吗，删除不可恢复?", "mark", function (action) {
+            if (action == 'ok') { //删除
+                var ids = [];
+                for (var i = 0; i < rows.length; i++) {
+                    var row = rows[i];
+                    ids.push(row.id);
                 }
+                var id = ids.join(",");
+                $.ajax({
+                    url: _G.baseUrl + "/dept/delDept.do?ids=" + id,
+                    success: function (data) {
+                        data = mini.decode(data);
+                        if (data.code == 0) {
+                            showMsgBox('删除', data.message, 'fail');
+                        } else {
+                            showMsgBox('删除', data.message, 'success', function () {
+                                grid.reload();
+                            });
+                        }
+                    },
+                    error: function () {
+                    }
+                });
             }
         });
     } else {
-        parent.mini.showMessageBox({
-            title: '删除',
-            buttons: ["ok", "cancel"],
-            html: '<div class="messageBox"><img src="../images/mark.png"/><span>请选择要删除的记录!</span></div>',
-            callback: function (action) {
-                if (action == 'ok') { //删除
-
-                }
-            }
-        });
+        showMsgBox("删除", "请选择要删除的记录!");
     }
 
 }

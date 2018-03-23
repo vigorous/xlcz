@@ -30,20 +30,9 @@
         delete from sys_dept
         where id = #{id,jdbcType=INTEGER}
     </delete>
-    <insert id="insert" parameterType="Dept">
-        insert into sys_dept (id, dept_name, dept_desc,
-          deleted_flag, create_id, create_time,
-          modify_id, modify_time)
-        values (#{id,jdbcType=INTEGER}, #{deptName,jdbcType=VARCHAR}, #{deptDesc,jdbcType=VARCHAR},
-          #{deletedFlag,jdbcType=VARCHAR}, #{createId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
-          #{modifyId,jdbcType=INTEGER}, #{modifyTime,jdbcType=TIMESTAMP})
-    </insert>
     <insert id="insertSelective" parameterType="Dept" useGeneratedKeys="true" keyProperty="id">
         insert into sys_dept
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <!--<if test="id != null">
-                id,
-            </if>-->
             <if test="deptName != null">
                 dept_name,
             </if>
@@ -67,9 +56,6 @@
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <!--<if test="id != null">
-                #{id,jdbcType=INTEGER},
-            </if>-->
             <if test="deptName != null">
                 #{deptName,jdbcType=VARCHAR},
             </if>
@@ -118,17 +104,6 @@
                 modify_time = #{modifyTime,jdbcType=TIMESTAMP},
             </if>
         </set>
-        where id = #{id,jdbcType=INTEGER}
-    </update>
-    <update id="updateByPrimaryKey" parameterType="Dept">
-        update sys_dept
-        set dept_name = #{deptName,jdbcType=VARCHAR},
-          dept_desc = #{deptDesc,jdbcType=VARCHAR},
-          deleted_flag = #{deletedFlag,jdbcType=VARCHAR},
-          create_id = #{createId,jdbcType=INTEGER},
-          create_time = #{createTime,jdbcType=TIMESTAMP},
-          modify_id = #{modifyId,jdbcType=INTEGER},
-          modify_time = #{modifyTime,jdbcType=TIMESTAMP}
         where id = #{id,jdbcType=INTEGER}
     </update>
 

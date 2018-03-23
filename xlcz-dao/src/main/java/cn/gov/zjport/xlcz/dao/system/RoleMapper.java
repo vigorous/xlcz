@@ -3,22 +3,43 @@ package cn.gov.zjport.xlcz.dao.system;
 import cn.gov.zjport.xlcz.domain.json.RoleJo;
 import cn.gov.zjport.xlcz.domain.so.RoleSo;
 import cn.gov.zjport.xlcz.domain.vo.Role;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 public interface RoleMapper {
 
+    /**
+     * 物理删除
+     *
+     * @param id 角色ID
+     * @return int
+     */
     int deleteByPrimaryKey(Integer id);
 
-    int insert(Role record);
+    /**
+     * 选择新增
+     *
+     * @param role
+     * @return
+     */
+    int insertSelective(Role role);
 
-    int insertSelective(Role record);
-
+    /**
+     * 根据主键查询角色
+     *
+     * @param id 角色ID
+     * @return Role
+     */
     Role selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(Role record);
-
-    int updateByPrimaryKey(Role record);
+    /**
+     * 修改
+     *
+     * @param role
+     * @return
+     */
+    int updateByPrimaryKeySelective(Role role);
 
     /**
      * 查询部门所有角色
@@ -34,7 +55,7 @@ public interface RoleMapper {
      * @param detpId 部门ID
      * @return List<RoleJo>
      */
-    List<RoleJo> findByDeptId(Integer detpId);
+    List<RoleJo> findByDeptId(@Param("deptId") Integer detpId);
 
     /**
      * 角色列表分页查询
@@ -43,4 +64,12 @@ public interface RoleMapper {
      * @return List<Role>
      */
     List<Role> findByPage(RoleSo roleSo);
+
+    /**
+     * 删除角色
+     *
+     * @param id 角色ID
+     * @return int
+     */
+    int deleteById(Integer id);
 }

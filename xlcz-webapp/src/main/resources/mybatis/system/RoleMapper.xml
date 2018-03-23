@@ -23,26 +23,25 @@
         id, role_name, role_desc, dept_id, deleted_flag, create_id, create_time,
         modify_id, modify_time
     </sql>
+    <!--根据主键查询角色-->
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
         from sys_role
         where id = #{id,jdbcType=INTEGER}
     </select>
+    <!--物理删除-->
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete from sys_role
         where id = #{id,jdbcType=INTEGER}
     </delete>
-    <insert id="insert" parameterType="Role" useGeneratedKeys="true" keyProperty="id">
-        insert into sys_role (role_name,
-          role_desc, dept_id,
-          deleted_flag, create_id, create_time,
-          modify_id, modify_time)
-        values (#{roleName,jdbcType=VARCHAR},
-          #{roleDesc,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER},
-          #{deletedFlag,jdbcType=VARCHAR}, #{createId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
-          #{modifyId,jdbcType=INTEGER}, #{modifyTime,jdbcType=TIMESTAMP})
-    </insert>
+    <!--逻辑删除角色-->
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        update sys_role
+        set deleted_flag = '1'
+        where id = #{id}
+    </delete>
+    <!--选择新增-->
     <insert id="insertSelective" parameterType="Role" useGeneratedKeys="true" keyProperty="id">
         insert into sys_role
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -128,32 +127,17 @@
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
-    <update id="updateByPrimaryKey" parameterType="Role">
-        update sys_role
-        set role_name = #{roleName,jdbcType=VARCHAR},
-          role_desc = #{roleDesc,jdbcType=VARCHAR},
-          dept_id = #{deptId,jdbcType=INTEGER},
-          deleted_flag = #{deletedFlag,jdbcType=VARCHAR},
-          create_id = #{createId,jdbcType=INTEGER},
-          create_time = #{createTime,jdbcType=TIMESTAMP},
-          modify_id = #{modifyId,jdbcType=INTEGER},
-          modify_time = #{modifyTime,jdbcType=TIMESTAMP}
-        where id = #{id,jdbcType=INTEGER}
-    </update>
-
     <!-- 查询部门角色Role对象 -->
     <select id="findRolesByDeptId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select * from sys_role
-        where 1=1
-        <if test="deptId != null and deptId != ''">
+        where deleted_flag = '0'
             and dept_id = #{deptId}
-        </if>
     </select>
 
     <!-- 查询部门角色RoleJo对象 -->
     <select id="findByDeptId" parameterType="java.lang.Integer" resultMap="BaseRoleJo">
         select * from sys_role
-        where 1=1
+        where deleted_flag = '0'
         <if test="deptId != null and deptId != ''">
             and dept_id = #{deptId}
         </if>
@@ -163,11 +147,10 @@
     <select id="findByPage" parameterType="RoleSo" resultMap="BaseResultMap">
         select t.*,t1.dept_name from sys_role t
         left join sys_dept t1 on t1.id = t.dept_id
-        <where>
-            <if test="roleName != null and roleName != ''">
-                and t.role_name like concat(concat('%',#{roleName}),'%')
-            </if>
-        </where>
+        where t.deleted_flag = '0'
+        <if test="roleName != null and roleName != ''">
+            and t.role_name like concat(concat('%',#{roleName}),'%')
+        </if>
     </select>
 
 </mapper>

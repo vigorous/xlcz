@@ -165,8 +165,13 @@ public class UserController extends BaseController {
     @RequestMapping(value = "/delUsers")
     @ResponseBody
     public String delUsers(String[] ids) {
-        userService.batchDeleteById(ids);
-        return JSONUtil.jsonResult("");
+        try {
+            userService.batchDeleteById(ids);
+        } catch (Exception e) {
+            LOGGER.error(e.toString(), e);
+            return JSONUtil.failJsonResult(SystemContext.MessageType.DELETE_FAIL.getValue());
+        }
+        return JSONUtil.jsonResult(SystemContext.MessageType.DELETE_SUCCESS.getValue());
     }
 
 

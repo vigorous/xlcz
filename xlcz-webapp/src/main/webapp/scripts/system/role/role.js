@@ -66,9 +66,9 @@ function add() {
         success: function (data) {
             data = mini.decode(data);
             if (data.code == 0) {
-                showMsgBox('新增', msg.message, 'fail');
+                showMsgBox('新增', data.message, 'fail');
             } else {
-                showMsgBox('新增', msg.message, 'success', function () {
+                showMsgBox('新增', data.message, 'success', function () {
                     closeWindow();
                 });
             }
@@ -132,9 +132,9 @@ function edit() {
         success: function (data) {
             data = mini.decode(data);
             if (data.code == 0) {
-                showMsgBox('修改', msg.message, 'fail');
+                showMsgBox('修改', data.message, 'fail');
             } else {
-                showMsgBox('修改', msg.message, 'success', function () {
+                showMsgBox('修改', data.message, 'success', function () {
                     closeWindow();
                 });
             }
@@ -148,7 +148,7 @@ function edit() {
 function del() {
     var rows = grid.getSelecteds();
     if (rows.length > 0) {
-        showMsgBox("删除", "你确定要删信息吗，删除不可恢复?", function (action) {
+        showMsgBox("删除", "你确定要删信息吗，删除不可恢复?", "mark", function (action) {
             if (action == 'ok') {
                 var ids = [];
                 for (var i = 0; i < rows.length; i++) {
@@ -157,11 +157,20 @@ function del() {
                 }
                 var id = ids.join(",");
                 $.ajax({
-                    url: _G.baseUrl + "/role/delRoles.do?ids=" + id,
-                    success: function (text) {
-                        grid.reload();
+                    url: _G.baseUrl + "/role/delRoles.do",
+                    data: {ids: id},
+                    type: "post",
+                    success: function (data) {
+                        data = mini.decode(data);
+                        if (data.code == 0) {
+                            showMsgBox('删除', data.message, 'fail');
+                        } else {
+                            showMsgBox('删除', data.message, 'success', function () {
+                                grid.reload();
+                            });
+                        }
                     },
-                    error: function () {
+                    error: function (jqXHR, textStatus, errorThrown) {
                     }
                 });
             }

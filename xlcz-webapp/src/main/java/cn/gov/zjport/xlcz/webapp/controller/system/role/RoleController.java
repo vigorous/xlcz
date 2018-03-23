@@ -157,7 +157,13 @@ public class RoleController extends BaseController {
     @RequestMapping(value = "/delRoles")
     @ResponseBody
     public Object delRoles(String[] ids) {
-        return "";
+        try {
+            roleService.deleteByIds(ids);
+        } catch (Exception e) {
+            LOGGER.error(e.toString(), e);
+            return JSONUtil.failJsonResult(e.getMessage());
+        }
+        return JSONUtil.jsonResult(SystemContext.DELETE_SUCCESS);
     }
 
     /**

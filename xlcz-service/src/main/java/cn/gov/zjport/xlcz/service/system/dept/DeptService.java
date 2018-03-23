@@ -11,6 +11,7 @@ package cn.gov.zjport.xlcz.service.system.dept;
 
 import cn.gov.zjport.xlcz.domain.json.DeptJo;
 import cn.gov.zjport.xlcz.domain.vo.Dept;
+import cn.gov.zjport.xlcz.service.system.base.BaseService;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -22,7 +23,7 @@ import java.util.List;
  * @version $Id$
  * @since 1.0
  */
-public interface DeptService {
+public interface DeptService extends BaseService {
 
     /**
      * 分页查询部门

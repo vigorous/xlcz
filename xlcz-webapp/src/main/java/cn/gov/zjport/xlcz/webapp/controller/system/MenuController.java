@@ -39,6 +39,7 @@ public class MenuController extends BaseController {
     /** 日志 */
     private final static Logger LOGGER = LoggerFactory.getLogger(MenuController.class);
 
+    /** 菜单服务 */
     @Autowired
     private MenuService menuService;
 
@@ -78,7 +79,9 @@ public class MenuController extends BaseController {
     @RequestMapping(value = "/allRoleMenuTree")
     @ResponseBody
     public Object allRoleMenuTree(Integer roleId) {
+        //获取角色菜单tree
         List<MenuTree> list = menuService.findAllRoleMenuTree(roleId);
+        //将角色菜单tree封装成页面需要的格式
         List<MenuTree> menuTrees = new ArrayList<>();
         for (MenuTree menuTree : list) {
             if (menuTree.getChecked() == 0) {

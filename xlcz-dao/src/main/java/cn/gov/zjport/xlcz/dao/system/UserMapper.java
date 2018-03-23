@@ -9,17 +9,37 @@ import java.util.Set;
 
 public interface UserMapper {
 
+    /**
+     * 物理删除
+     *
+     * @param id 用户ID
+     * @return int
+     */
     int deleteByPrimaryKey(Integer id);
 
-    int insert(User user);
-
+    /**
+     * 新增
+     *
+     * @param user 用户
+     * @return int
+     */
     int insertSelective(User user);
 
+    /**
+     * 通过主键查询
+     *
+     * @param id 用户ID
+     * @return
+     */
     User selectByPrimaryKey(Integer id);
 
+    /**
+     * 修改
+     *
+     * @param user 用户
+     * @return int
+     */
     int updateByPrimaryKeySelective(User user);
-
-    int updateByPrimaryKey(User user);
 
     /**
      * 分页查询
@@ -67,5 +87,13 @@ public interface UserMapper {
      * @return User
      */
     UserDto findUserDtoById(@Param("id") Integer id);
+
+    /**
+     * 统计该角色有多少用户
+     *
+     * @param roleId 角色ID
+     * @return int
+     */
+    int countUsersByRoleId(Integer roleId);
 
 }

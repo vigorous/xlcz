@@ -102,6 +102,16 @@ public class JSONUtil {
     /**
      * 返回成功的结果集
      *
+     * @return String jsonStr
+     */
+    public static String succJsonResult() {
+        BaseResult baseResult = new BaseResult(Const.CODE_SUCCESS, Const.SUCCESS_DESC, null);
+        return JSON.toJSONString(baseResult);
+    }
+
+    /**
+     * 返回成功的结果集
+     *
      * @param list 数据
      * @return String jsonStr
      */

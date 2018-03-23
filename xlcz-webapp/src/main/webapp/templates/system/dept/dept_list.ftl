@@ -3,10 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>部门列表</title>
-<#--<link rel="stylesheet" href="${baseUrl}/scripts/lib/miniui/themes/default/miniui.css"/>
-<link rel="stylesheet" href="${baseUrl}/scripts/lib/miniui/themes/icons.css"/>
-<link rel="stylesheet" href="${baseUrl}/css/base.css"/>
-<link rel="stylesheet" href="${baseUrl}/css/explain.css"/>-->
     <#include "../../common/meta_zjport.ftl"/>
 </head>
 <body>
@@ -65,23 +61,6 @@
             </div>
         </div>
     </div>
-<#--<div class="expository">
-    <div class="web-name">搜索栏：单行</div>
-    <div>（1）当查询条件小于等于2个，单行显示，按钮显示在同一行右侧。</div>
-    <div>（2）按钮：查询按钮与重置相比优先级更前，查询按钮样式为白色文字蓝色背景，相对突出；重置按钮样式为深灰文字灰色描边，相对弱化，字号：14号。</div>
-    <div>（3）查询条件：文字字号：14号</div>
-    <div class="web-name">操作栏（按键）</div>
-    <div>重要功能按钮（增加、修改、删除...) 放在表格左上角；常见功能按钮（导入、导出、打印...）以下拉形式放在表格右上角。</div>
-    <div class="web-name">列表</div>
-    <div class="module">字段对齐方式：</div>
-    <div>（1）默认列表文字应左对齐显示;</div>
-    <div>（2）当出现数据、金额等内容应右对齐显示。</div>
-    <div>（3）标题字号：16号 ，表头字号：12号 ，表体字号：12号</div>
-    <div class="explain-group">
-        <div class="module">列表操作：</div>
-        <div>列表中操作功能，显示在最后一列，以圆形蓝色图标形式展现（如修改、删除）</div>
-    </div>
-</div>-->
 </div>
 <script src="${baseUrl}/scripts/lib/jquery/jquery.min.js"></script>
 <script src="${baseUrl}/scripts/lib/miniui/miniui.js"></script>
@@ -138,9 +117,6 @@
 
     function updateRow() {
         grid.commitEdit();
-        /*var data = grid.getChanges();
-        var json = mini.encode(data);
-        console.log("json:", json);*/
     }
 
     function cancelRow() {

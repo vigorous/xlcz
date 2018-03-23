@@ -34,6 +34,7 @@
         id, user_name, name, password, remark, role_id, deleted_flag, create_id, create_time, modify_id,
         modify_time
     </sql>
+    <!--通过主键查询-->
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
@@ -41,22 +42,13 @@
         where id = #{id,jdbcType=INTEGER}
     </select>
 
+    <!--物理删除-->
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete from sys_user
         where id = #{id,jdbcType=INTEGER}
     </delete>
 
-    <insert id="insert" parameterType="User" useGeneratedKeys="true" keyProperty="id">
-        insert into sys_user (user_name, name, password,
-        remark, role_id, deleted_flag,
-        create_id, create_time, modify_id,
-        modify_time)
-        values (#{userName,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
-        #{remark,jdbcType=VARCHAR}, #{roleId,jdbcType=INTEGER}, #{deletedFlag,jdbcType=VARCHAR},
-        #{createId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{modifyId,jdbcType=INTEGER},
-        #{modifyTime,jdbcType=TIMESTAMP})
-    </insert>
-
+    <!--新增-->
     <insert id="insertSelective" parameterType="User">
         insert into sys_user
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -160,20 +152,6 @@
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
-    <update id="updateByPrimaryKey" parameterType="User">
-        update sys_user
-        set user_name = #{userName,jdbcType=VARCHAR},
-        name = #{name,jdbcType=VARCHAR},
-        password = #{password,jdbcType=VARCHAR},
-        remark = #{remark,jdbcType=VARCHAR},
-        role_id = #{roleId,jdbcType=INTEGER},
-        deleted_flag = #{deletedFlag,jdbcType=VARCHAR},
-        create_id = #{createId,jdbcType=INTEGER},
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-        modify_id = #{modifyId,jdbcType=INTEGER},
-        modify_time = #{modifyTime,jdbcType=TIMESTAMP}
-        where id = #{id,jdbcType=INTEGER}
-    </update>
 
     <!-- 分页查询 -->
     <select id="findByPage" resultMap="BaseUserDto" parameterType="UserDto">
@@ -239,13 +217,19 @@
     </select>
 
     <!-- 通过用户名获取角色名称 -->
-    <select id="getRole" resultType="String" parameterType="java.lang.String">
+    <select id="getRole" resultType="java.lang.String" parameterType="java.lang.String">
         select r.id
         from sys_user u,sys_role r
         where u.roleId = r.id
           and u.userName = #{userName}
     </select>
-
+    <!-- 统计该角色有多少用户 -->
+    <select id="countUsersByRoleId" resultType="java.lang.Integer">
+        select count(*)
+        from sys_user
+        where deleted_flag = '0'
+          and role_id = #{roleId}
+    </select>
     <!-- 逻辑删除 -->
     <update id="deleteById" parameterType="java.lang.Integer">
         update sys_user
