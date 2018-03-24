@@ -114,9 +114,20 @@ public class RoleServiceImpl extends BaseServiceImpl implements RoleService {
             }
         }
         //新增角色
-        roleMapper.insertSelective(role);
+        role.setDeletedFlag("0");
+        role.setCreateId(getSessionUserId());
+        role.setCreateTime(new Date());
+        //返回role的主键id
+        int roleId = roleMapper.insertSelective(role);
         //新增角色菜单权限
         List<RoleMenu> roleMenus = JSON.parseArray(role.getRoleMenuJson(), RoleMenu.class);
+        for (RoleMenu roleMenu : roleMenus) {
+            roleMenu.setRoleId(role.getId());
+            roleMenu.setDeletedFlag("0");
+            roleMenu.setCreateId(getSessionUserId());
+            roleMenu.setCreateTime(new Date());
+            roleMenuMapper.insertSelective(roleMenu);
+        }
     }
 
     /**
@@ -160,6 +171,8 @@ public class RoleServiceImpl extends BaseServiceImpl implements RoleService {
                 throw new CzException("该角色下有用户在使用!");
             }
             roleMapper.deleteById(key);
+            //删除角色菜单权限
+            roleMenuMapper.deleteByRoleId(key);
         }
     }
 

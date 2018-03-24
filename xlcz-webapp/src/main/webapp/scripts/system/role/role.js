@@ -26,7 +26,7 @@ function toAdd() {
         url: _G.baseUrl + "/role/toAdd.do",
         title: "新增",
         width: 800,
-        height: 600,
+        height: 800,
         onload: function () {
             var iframe = this.getIFrameEl();
         },
@@ -53,7 +53,8 @@ function add() {
     //角色菜单
     var roleMenuArr = new Array();
     for (var i = 0; i < nodes.length; i++) {
-        var roleMenu = createRoleMenu(roleId, nodes[i].id);
+        //创建角色菜单对象constructor(角色ID, 菜单ID)
+        var roleMenu = createRoleMenu(null, nodes[i].id);
         roleMenuArr.add(roleMenu);
     }
     var roleMenuJson = JSON.stringify(roleMenuArr);

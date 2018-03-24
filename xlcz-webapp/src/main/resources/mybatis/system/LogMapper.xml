@@ -132,7 +132,7 @@
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
-    <!-- 分页查询部门 -->
+    <!-- 分页查询日志 -->
     <select id="findByPage" resultMap="BaseLogDto" parameterType="LogDto">
         select t.id,
         t.user_id userId,
@@ -153,5 +153,6 @@
                 and date(t.login_time) = #{loginTime}
             </if>
         </where>
+        order by t.login_time desc
     </select>
 </mapper>
