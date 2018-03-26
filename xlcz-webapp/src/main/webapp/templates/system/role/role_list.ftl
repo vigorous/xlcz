@@ -22,14 +22,6 @@
                         </div>
                     </div>
                 </div>
-            <#--<div class="mini-col-4">
-                <div class="mini-col-2 form-label">姓名</div>
-                <div class="mini-col-10">
-                    <div class="form-input">
-                        <input id="name" class="mini-textbox" name="name" height="30"/>
-                    </div>
-                </div>
-            </div>-->
                 <div class="mini-col-6">
                     <div class="button-group-right">
                         <input id="searchBtn" class="btn" type="button" value="查询" onclick="search()"/>
@@ -63,15 +55,6 @@
                                 <div field="roleDesc" width="80">角色描述
                                     <input property="editor" class="mini-textbox" style="width:100%;" height="30"/>
                                 </div>
-                            <#--<div name="dId" field="deptId" displayField="deptName" width="80">部门
-                                <input property="editor" class="mini-combobox" id="deptCombo" style="width:100%;"
-                                       height="30" valueField="id" textField="deptName" onvaluechanged="deptChanged"
-                                       url="${baseUrl}/dept/deptJson.do"/>
-                            </div>
-                            <div name="rId" field="roleId" displayField="roleName" width="80">角色
-                                <input property="editor" class="mini-combobox" id="roleCombo" style="width:100%;"
-                                       height="30" valueField="id" textField="roleName"/>
-                            </div>-->
                                 <div field="deptName" width="100">部门名称
                                     <input property="editor" class="mini-textbox" style="width:100%;" height="30"/>
                                 </div>
