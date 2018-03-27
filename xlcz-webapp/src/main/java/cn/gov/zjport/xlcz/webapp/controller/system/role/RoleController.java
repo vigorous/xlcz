@@ -142,7 +142,7 @@ public class RoleController extends BaseController {
         try {
             roleService.updateRoleAuth(role);
         } catch (Exception e) {
-            LOGGER.debug(e.getMessage());
+            LOGGER.error(e.getMessage());
             return JSONUtil.jsonResult(SystemContext.MessageType.MODIFY_FAIL.getValue());
         }
         return JSONUtil.jsonResult(SystemContext.MessageType.MODIFY_SUCCESS.getValue());
