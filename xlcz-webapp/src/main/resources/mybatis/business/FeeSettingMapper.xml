@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.gov.zjport.xlcz.dao.business.FeeSettingMapper">
+    <resultMap id="BaseResultMap" type="FeeSetting">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="fee_code" property="feeCode" jdbcType="VARCHAR"/>
+        <result column="fee_name" property="feeName" jdbcType="VARCHAR"/>
+        <result column="fee_value" property="feeValue" jdbcType="DOUBLE"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+        <result column="deleted_flag" property="deletedFlag" jdbcType="VARCHAR"/>
+        <result column="create_id" property="createId" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="modify_id" property="modifyId" jdbcType="INTEGER"/>
+        <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, fee_code, fee_name, fee_value, remark, deleted_flag, create_id, create_time,
+        modify_id, modify_time
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from fee_setting
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="findAll" resultMap="BaseResultMap">
+        select * from fee_setting
+        where deleted_flag = '0'
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from fee_setting
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insertSelective" parameterType="FeeSetting" useGeneratedKeys="true" keyProperty="id">
+        insert into fee_setting
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="feeCode != null">
+                fee_code,
+            </if>
+            <if test="feeName != null">
+                fee_name,
+            </if>
+            <if test="feeValue != null">
+                fee_value,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="deletedFlag != null">
+                deleted_flag,
+            </if>
+            <if test="createId != null">
+                create_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="modifyId != null">
+                modify_id,
+            </if>
+            <if test="modifyTime != null">
+                modify_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="feeCode != null">
+                #{feeCode,jdbcType=VARCHAR},
+            </if>
+            <if test="feeName != null">
+                #{feeName,jdbcType=VARCHAR},
+            </if>
+            <if test="feeValue != null">
+                #{feeValue,jdbcType=DOUBLE},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="deletedFlag != null">
+                #{deletedFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="createId != null">
+                #{createId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyId != null">
+                #{modifyId,jdbcType=INTEGER},
+            </if>
+            <if test="modifyTime != null">
+                #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="FeeSetting">
+        update fee_setting
+        <set>
+            <if test="feeCode != null">
+                fee_code = #{feeCode,jdbcType=VARCHAR},
+            </if>
+            <if test="feeName != null">
+                fee_name = #{feeName,jdbcType=VARCHAR},
+            </if>
+            <if test="feeValue != null">
+                fee_value = #{feeValue,jdbcType=DOUBLE},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="deletedFlag != null">
+                deleted_flag = #{deletedFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="createId != null">
+                create_id = #{createId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyId != null">
+                modify_id = #{modifyId,jdbcType=INTEGER},
+            </if>
+            <if test="modifyTime != null">
+                modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <!--根据主键修改费率值-->
+    <update id="updateFeeValueById" parameterType="FeeSetting">
+        update fee_setting
+        set fee_value = #{feeValue},
+          remark = #{remark},
+          modify_id = #{modifyId},
+          modify_time = #{modifyTime}
+          where id = #{id}
+    </update>
+</mapper>
