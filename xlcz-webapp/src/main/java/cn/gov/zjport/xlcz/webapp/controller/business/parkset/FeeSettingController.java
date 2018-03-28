@@ -38,7 +38,7 @@ public class FeeSettingController extends BaseController {
     /** serialVersionUID */
     private static final long serialVersionUID = 7359285576455668791L;
 
-    /**  */
+    /** 路劲前缀 */
     private static final String PREFIX = "business/parkset/feesetting/";
 
     /** 费率设置服务 */
@@ -46,7 +46,7 @@ public class FeeSettingController extends BaseController {
     private FeeSettingService feeSettingService;
 
     /**
-     * 首页
+     * 费率设置列表页面
      *
      * @return String
      */

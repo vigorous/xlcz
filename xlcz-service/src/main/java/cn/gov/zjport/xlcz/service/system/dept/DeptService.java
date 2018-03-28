@@ -60,7 +60,7 @@ public interface DeptService extends BaseService {
     /**
      * 删除部门
      *
-     * @param id 部门ID
+     * @param ids 部门ID
      * @return int
      */
     int deleteById(String[] ids);

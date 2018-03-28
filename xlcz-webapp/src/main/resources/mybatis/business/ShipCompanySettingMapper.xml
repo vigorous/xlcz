@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.gov.zjport.xlcz.dao.business.ShipCompanySettingMapper">
+    <resultMap id="BaseResultMap" type="ShipCompanySetting">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="shipping_company" property="shippingCompany" jdbcType="VARCHAR"/>
+        <result column="code_rule" property="codeRule" jdbcType="VARCHAR"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+        <result column="deleted_flag" property="deletedFlag" jdbcType="VARCHAR"/>
+        <result column="create_id" property="createId" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="modify_id" property="modifyId" jdbcType="INTEGER"/>
+        <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, shipping_company, code_rule, remark, deleted_flag, create_id, create_time, modify_id, 
+        modify_time
+    </sql>
+    <!--根据主键查询-->
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from ship_company_setting
+        where deleted_flag = '0'
+        and id = #{id,jdbcType=INTEGER}
+    </select>
+    <!--分页查询-->
+    <select id="findByPage" resultMap="BaseResultMap" parameterType="ShipCompanySettingSo">
+        select
+        <include refid="Base_Column_List"/>
+        from ship_company_setting
+        where deleted_flag = '0'
+        <if test="shippingCompany != null and shippingCompany != ''">
+            and shipping_company like concat(concat('%',#{shippingCompany}),'%')
+        </if>
+    </select>
+    <!--根据船公司名称查询-->
+    <select id="findByShippingCompany" resultType="ShipCompanySetting" parameterType="ShipCompanySetting">
+        select
+        <include refid="Base_Column_List"/>
+        from ship_company_setting
+        where deleted_flag = '0'
+        <if test="shippingCompany != null">
+            and shipping_company = #{shippingCompany}
+        </if>
+    </select>
+    <!--删除-->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from ship_company_setting
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <!--新增-->
+    <insert id="insertSelective" parameterType="ShipCompanySetting" useGeneratedKeys="true" keyProperty="id">
+        insert into ship_company_setting
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="shippingCompany != null">
+                shipping_company,
+            </if>
+            <if test="codeRule != null">
+                code_rule,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="deletedFlag != null">
+                deleted_flag,
+            </if>
+            <if test="createId != null">
+                create_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="modifyId != null">
+                modify_id,
+            </if>
+            <if test="modifyTime != null">
+                modify_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="shippingCompany != null">
+                #{shippingCompany,jdbcType=VARCHAR},
+            </if>
+            <if test="codeRule != null">
+                #{codeRule,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="deletedFlag != null">
+                #{deletedFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="createId != null">
+                #{createId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyId != null">
+                #{modifyId,jdbcType=INTEGER},
+            </if>
+            <if test="modifyTime != null">
+                #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <!--修改-->
+    <update id="updateByPrimaryKeySelective" parameterType="ShipCompanySetting">
+        update ship_company_setting
+        <set>
+            <if test="shippingCompany != null">
+                shipping_company = #{shippingCompany,jdbcType=VARCHAR},
+            </if>
+            <if test="codeRule != null">
+                code_rule = #{codeRule,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="deletedFlag != null">
+                deleted_flag = #{deletedFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="createId != null">
+                create_id = #{createId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyId != null">
+                modify_id = #{modifyId,jdbcType=INTEGER},
+            </if>
+            <if test="modifyTime != null">
+                modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

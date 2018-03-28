@@ -8,32 +8,22 @@
  *           识产权保护的内容。
  ***************************************************************************/
 
-$(function () {
-    /** enter键事件监听 */
-    $("#deptName").bind("keydown", function (e) {
-        if (e.keyCode == 13) {
-            search();
-        }
-    });
-})
-
-
 /** 查询 */
 function search() {
-    var deptName = mini.get("deptName").getValue();
-    grid.load({deptName: deptName});
+    var shippingCompany = mini.get("shippingCompany").getValue();
+    grid.load({shippingCompany: shippingCompany});
 }
 
 /** 重置 */
 function reset() {
-    mini.get("deptName").setValue('');
+    mini.get("shippingCompany").setValue('');
 }
 
 /** 去新增页面 */
 function toAdd() {
     mini.open({
         targetWindow: window.parent,
-        url: _G.baseUrl + "/dept/toAdd.do",
+        url: _G.baseUrl + "/ship/toAdd.do",
         title: "新增",
         width: 800,
         height: 330,
@@ -46,8 +36,8 @@ function toAdd() {
     });
 }
 
-/** 新增部门 */
-function addDept() {
+/** 新增 */
+function add() {
     var form = new mini.Form("#addForm");
     var flag = form.validate();
     if (!flag) {
@@ -56,7 +46,7 @@ function addDept() {
     var data = form.getData();
 
     $.ajax({
-        url: _G.baseUrl + "/dept/addDept.do",
+        url: _G.baseUrl + "/ship/addShip.do",
         data: data,
         type: "post",
         success: function (data) {
@@ -68,7 +58,6 @@ function addDept() {
                     closeWindow();
                 });
             }
-
         },
         error: function (jqXHR, textStatus, errorThrown) {
             //mini.alert(jqXHR.responseText);
@@ -82,10 +71,10 @@ function toEdit() {
     if (rows.length <= 0 || rows.length > 1) {//未选中一条记录
         showMsgBox('修改', '请选择一条记录!');
     } else {
-        var dept = rows[0];
+        var ship = rows[0];
         mini.open({
             targetWindow: window.parent,
-            url: _G.baseUrl + "/dept/toEdit.do?id=" + dept.id,
+            url: _G.baseUrl + "/ship/toEdit.do?id=" + ship.id,
             title: "修改",
             width: 800,
             height: 330,
@@ -100,8 +89,8 @@ function toEdit() {
 
 }
 
-/** 修改部门 */
-function editDept() {
+/** 修改 */
+function edit() {
     var form = new mini.Form("#editForm");
     var flag = form.validate();
     if (!flag) {
@@ -110,16 +99,14 @@ function editDept() {
     var data = form.getData();
 
     $.ajax({
-        url: _G.baseUrl + "/dept/editDept.do",
+        url: _G.baseUrl + "/ship/editShip.do",
         data: data,
         type: "post",
         success: function (msg) {
-            console.log("msg:", msg);
             closeWindow();
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            //console.log("testStatus:", testStatus);
-            mini.alert(jqXHR.responseText);
+            //mini.alert(jqXHR.responseText);
         }
     });
 
@@ -127,7 +114,7 @@ function editDept() {
 
 
 /** 删除部门 */
-function delDept() {
+function del() {
     var rows = grid.getSelecteds();
     console.table(rows);
     if (rows.length > 0) {
@@ -140,7 +127,7 @@ function delDept() {
                 }
                 var id = ids.join(",");
                 $.ajax({
-                    url: _G.baseUrl + "/dept/delDept.do?ids=" + id,
+                    url: _G.baseUrl + "/ship/delShips.do?ids=" + id,
                     success: function (data) {
                         data = mini.decode(data);
                         if (data.code == 0) {
@@ -160,9 +147,4 @@ function delDept() {
         showMsgBox("删除", "请选择要删除的记录!");
     }
 
-}
-
-/** 关闭弹窗 */
-function closeWindow() {
-    window.CloseOwnerWindow("cancel");
 }

@@ -7,23 +7,14 @@ import java.io.Serializable;
 public class User extends BaseVo implements Serializable {
     /** serialVersionUID */
     private static final long serialVersionUID = -6593098652626957634L;
-    /**
-     * 用户名称
-     */
+    /** 用户名称 */
     private String userName;
-    /**
-     * 姓名
-     */
+    /** 姓名 */
     private String name;
-
-    /**
-     * 密码
-     */
+    /** 密码 */
     private String password;
 
-    /**
-     * 角色ID
-     */
+    /** 角色ID */
     private Integer roleId;
 
     /**
