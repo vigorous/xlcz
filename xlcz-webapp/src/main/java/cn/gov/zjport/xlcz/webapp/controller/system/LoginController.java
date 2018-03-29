@@ -38,9 +38,8 @@ import java.util.List;
 @Controller
 @RequestMapping("/login")
 public class LoginController extends BaseController {
-
-    /** 日志 */
-    //private final static Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
+    /** serialVersionUID */
+    private static final long serialVersionUID = -9037082708909280644L;
 
     /** 用户服务 */
     @Autowired

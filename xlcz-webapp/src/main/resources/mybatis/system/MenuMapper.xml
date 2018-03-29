@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.gov.zjport.xlcz.dao.system.MenuMapper">
+    <!--菜单结果集-->
     <resultMap id="BaseResultMap" type="Menu">
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="menu_name" property="menuName" jdbcType="VARCHAR"/>
@@ -17,13 +18,14 @@
         <result column="modify_id" property="modifyId" jdbcType="INTEGER"/>
         <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
     </resultMap>
+    <!--菜单树结果集-->
     <resultMap id="BaseMenuTree" type="MenuTree">
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="menu_name" property="menuName" jdbcType="VARCHAR"/>
         <result column="pid" property="pid" jdbcType="INTEGER"/>
         <result column="checked" property="checked" jdbcType="INTEGER"/>
     </resultMap>
-
+    <!--字段列表-->
     <sql id="Base_Column_List">
         id, menu_name, menu_type, permission_value, menu_uri, icon, status, orders, pid,
         deleted_flag, create_id, create_time, modify_id, modify_time

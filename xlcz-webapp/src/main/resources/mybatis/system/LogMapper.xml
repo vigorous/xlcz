@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.gov.zjport.xlcz.dao.system.LogMapper">
+    <!--日志结果集-->
     <resultMap id="BaseResultMap" type="Log">
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="user_id" property="userId" jdbcType="INTEGER"/>
@@ -13,7 +14,7 @@
         <result column="modify_id" property="modifyId" jdbcType="INTEGER"/>
         <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
     </resultMap>
-
+    <!--日志dto结果集-->
     <resultMap id="BaseLogDto" type="LogDto">
         <result column="userId" property="userId" jdbcType="INTEGER"/>
         <result column="roleId" property="roleId" jdbcType="INTEGER"/>
@@ -23,21 +24,24 @@
         <result column="name" property="name" jdbcType="VARCHAR"/>
         <result column="roleName" property="roleName" jdbcType="VARCHAR"/>
     </resultMap>
-
+    <!--字段列表-->
     <sql id="Base_Column_List">
         id, user_id, role_id, ip, login_time, deleted_flag, create_id, create_time, modify_id,
         modify_time
     </sql>
+    <!--根据主键查询-->
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
         from sys_log
         where id = #{id,jdbcType=INTEGER}
     </select>
+    <!--删除-->
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete from sys_log
         where id = #{id,jdbcType=INTEGER}
     </delete>
+    <!--新增-->
     <insert id="insertSelective" parameterType="Log" useGeneratedKeys="true" keyProperty="id">
         insert into sys_log
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -99,6 +103,7 @@
             </if>
         </trim>
     </insert>
+    <!--修改-->
     <update id="updateByPrimaryKeySelective" parameterType="Log">
         update sys_log
         <set>

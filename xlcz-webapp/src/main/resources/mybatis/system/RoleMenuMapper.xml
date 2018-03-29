@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.gov.zjport.xlcz.dao.system.RoleMenuMapper">
+    <!--角色菜单结果集-->
     <resultMap id="BaseResultMap" type="RoleMenu">
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="role_id" property="roleId" jdbcType="INTEGER"/>
@@ -11,19 +12,23 @@
         <result column="modify_id" property="modifyId" jdbcType="INTEGER"/>
         <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
     </resultMap>
+    <!--字段列表-->
     <sql id="Base_Column_List">
       id, role_id, menu_id, deleted_flag, create_id, create_time, modify_id, modify_time
     </sql>
+    <!--根据主键查询-->
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
         from sys_role_menu
         where id = #{id,jdbcType=INTEGER}
     </select>
+    <!--删除-->
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete from sys_role_menu
         where id = #{id,jdbcType=INTEGER}
     </delete>
+    <!--新增-->
     <insert id="insertSelective" parameterType="RoleMenu" useGeneratedKeys="true" keyProperty="id">
         insert into sys_role_menu
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -73,6 +78,7 @@
             </if>
         </trim>
     </insert>
+    <!--修改-->
     <update id="updateByPrimaryKeySelective" parameterType="RoleMenu">
         update sys_role_menu
         <set>
