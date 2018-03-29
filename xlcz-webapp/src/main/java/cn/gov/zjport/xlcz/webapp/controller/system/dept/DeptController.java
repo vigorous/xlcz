@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
 
@@ -123,11 +122,12 @@ public class DeptController extends BaseController {
     /**
      * 新增部门
      *
-     * @return String
+     * @param dept 部门
+     * @return Object
      */
     @RequestMapping(value = "/addDept")
     @ResponseBody
-    public String addDept(HttpSession session, Dept dept) {
+    public Object addDept(Dept dept) {
         //查询部门名称是否存在
         List<Dept> list = deptService.findByDeptName(dept);
         if (list != null && list.size() > 0) {

@@ -118,6 +118,7 @@ function edit() {
 /** 删除 */
 function del() {
     var rows = grid.getSelecteds();
+    console.log("rows = ", rows);
     if (rows.length > 0) {
         showMsgBox("删除", "你确定要删信息吗，删除不可恢复?", function (action) {
             if (action == 'ok') {
@@ -139,7 +140,7 @@ function del() {
                             });
                         }
                     },
-                    error: function () {
+                    error: function (jqXHR, textStatus, errorThrown) {
                     }
                 });
             }

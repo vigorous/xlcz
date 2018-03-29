@@ -73,9 +73,10 @@ public class LogController extends BaseController {
     }
 
     /**
-     * 导出
+     * 导出日志信息
      *
-     * @return String
+     * @param logDto   日志dto
+     * @param response 响应
      */
     @RequestMapping(value = "/excel")
     @ResponseBody
