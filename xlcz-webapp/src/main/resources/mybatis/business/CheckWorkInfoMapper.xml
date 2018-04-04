@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.gov.zjport.xlcz.dao.business.CheckWorkInfoMapper">
+    <resultMap id="BaseResultMap" type="CheckWorkInfo">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="serial_no" property="serialNo" jdbcType="VARCHAR"/>
+        <result column="entry_id" property="entryId" jdbcType="VARCHAR"/>
+        <result column="bill_no" property="billNo" jdbcType="VARCHAR"/>
+        <result column="container_no" property="containerNo" jdbcType="VARCHAR"/>
+        <result column="container_type" property="containerType" jdbcType="VARCHAR"/>
+        <result column="agent_code" property="agentCode" jdbcType="VARCHAR"/>
+        <result column="agent_name" property="agentName" jdbcType="VARCHAR"/>
+        <result column="customer_code" property="customerCode" jdbcType="VARCHAR"/>
+        <result column="customer_name" property="customerName" jdbcType="VARCHAR"/>
+        <result column="trade_code" property="tradeCode" jdbcType="VARCHAR"/>
+        <result column="trade_name" property="tradeName" jdbcType="VARCHAR"/>
+        <result column="owner_code" property="ownerCode" jdbcType="VARCHAR"/>
+        <result column="owner_name" property="ownerName" jdbcType="VARCHAR"/>
+        <result column="car_no" property="carNo" jdbcType="INTEGER"/>
+        <result column="in_time" property="inTime" jdbcType="TIMESTAMP"/>
+        <result column="out_time" property="outTime" jdbcType="TIMESTAMP"/>
+        <result column="up_time" property="upTime" jdbcType="TIMESTAMP"/>
+        <result column="down_time" property="downTime" jdbcType="TIMESTAMP"/>
+        <result column="hangbox_times" property="hangboxTimes" jdbcType="INTEGER"/>
+        <result column="weighting_times" property="weightingTimes" jdbcType="INTEGER"/>
+        <result column="detention_days" property="detentionDays" jdbcType="INTEGER"/>
+        <result column="bracket_num" property="bracketNum" jdbcType="INTEGER"/>
+        <result column="unstuffing_type" property="unstuffingType" jdbcType="VARCHAR"/>
+        <result column="shipping_company" property="shippingCompany" jdbcType="VARCHAR"/>
+        <result column="custom_pass" property="customPass" jdbcType="VARCHAR"/>
+        <result column="custom_pass_time" property="customPassTime" jdbcType="TIMESTAMP"/>
+        <result column="check_pass" property="checkPass" jdbcType="VARCHAR"/>
+        <result column="check_pass_time" property="checkPassTime" jdbcType="TIMESTAMP"/>
+        <result column="seal_status" property="sealStatus" jdbcType="VARCHAR"/>
+        <result column="seal_time" property="sealTime" jdbcType="TIMESTAMP"/>
+        <result column="teu_num" property="teuNum" jdbcType="INTEGER"/>
+        <result column="container_num" property="containerNum" jdbcType="INTEGER"/>
+        <result column="daily_status" property="dailyStatus" jdbcType="VARCHAR"/>
+        <result column="fee_id" property="feeId" jdbcType="INTEGER"/>
+        <result column="data_type" property="dataType" jdbcType="VARCHAR"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+        <result column="deleted_flag" property="deletedFlag" jdbcType="VARCHAR"/>
+        <result column="create_id" property="createId" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="modify_id" property="modifyId" jdbcType="INTEGER"/>
+        <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, serial_no, entry_id, bill_no, container_no, container_type, agent_code, agent_name,
+        customer_code, customer_name, trade_code, trade_name, owner_code, owner_name, car_no,
+        in_time, out_time, up_time, down_time, hangbox_times, weighting_times, detention_days,
+        bracket_num, unstuffing_type, shipping_company, custom_pass, custom_pass_time, check_pass,
+        check_pass_time, seal_status, seal_time, teu_num, container_num, daily_status, fee_id,
+        remark, deleted_flag, create_id, create_time, modify_id, modify_time
+    </sql>
+    <!--根据主键查询-->
+    <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from check_work_info
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <!--分页查询-->
+    <select id="findByPage" resultType="CheckWorkInfo" parameterType="CheckWorkInfoSo">
+        select
+        <include refid="Base_Column_List"/>
+        from check_work_info
+        where deleted_flag = '0'
+        <if test="serialNo != null and serialNo !=''">
+            and serial_no = #{serialNo}
+        </if>
+        <if test="entryId != null and entryId !=''">
+            and entryId = #{entryId}
+        </if>
+        <if test="billNo != null and billNo !=''">
+            and bill_no = #{billNo}
+        </if>
+        <if test="containerNo != null and containerNo !=''">
+            and container_no = #{containerNo}
+        </if>
+        <if test="customerName != null and customerName !=''">
+            and customer_name = #{customerName}
+        </if>
+        <if test="startOutTime != null and startOutTime !=''">
+            <![CDATA[
+                and date(out_time) >= #{startOutTime}
+            ]]>
+        </if>
+        <if test="endOutTime != null and endOutTime !=''">
+            <![CDATA[
+                and date(out_time) <= #{endOutTime}
+            ]]>
+        </if>
+    </select>
+    <!--删除-->
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete from check_work_info
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <!--新增-->
+    <insert id="insert" parameterType="CheckWorkInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into check_work_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="serialNo != null">
+                serial_no,
+            </if>
+            <if test="entryId != null">
+                entry_id,
+            </if>
+            <if test="billNo != null">
+                bill_no,
+            </if>
+            <if test="containerNo != null">
+                container_no,
+            </if>
+            <if test="containerType != null">
+                container_type,
+            </if>
+            <if test="agentCode != null">
+                agent_code,
+            </if>
+            <if test="agentName != null">
+                agent_name,
+            </if>
+            <if test="customerCode != null">
+                customer_code,
+            </if>
+            <if test="customerName != null">
+                customer_name,
+            </if>
+            <if test="tradeCode != null">
+                trade_code,
+            </if>
+            <if test="tradeName != null">
+                trade_name,
+            </if>
+            <if test="ownerCode != null">
+                owner_code,
+            </if>
+            <if test="ownerName != null">
+                owner_name,
+            </if>
+            <if test="carNo != null">
+                car_no,
+            </if>
+            <if test="inTime != null">
+                in_time,
+            </if>
+            <if test="outTime != null">
+                out_time,
+            </if>
+            <if test="upTime != null">
+                up_time,
+            </if>
+            <if test="downTime != null">
+                down_time,
+            </if>
+            <if test="hangboxTimes != null">
+                hangbox_times,
+            </if>
+            <if test="weightingTimes != null">
+                weighting_times,
+            </if>
+            <if test="detentionDays != null">
+                detention_days,
+            </if>
+            <if test="bracketNum != null">
+                bracket_num,
+            </if>
+            <if test="unstuffingType != null">
+                unstuffing_type,
+            </if>
+            <if test="shippingCompany != null">
+                shipping_company,
+            </if>
+            <if test="customPass != null">
+                custom_pass,
+            </if>
+            <if test="customPassTime != null">
+                custom_pass_time,
+            </if>
+            <if test="checkPass != null">
+                check_pass,
+            </if>
+            <if test="checkPassTime != null">
+                check_pass_time,
+            </if>
+            <if test="sealStatus != null">
+                seal_status,
+            </if>
+            <if test="sealTime != null">
+                seal_time,
+            </if>
+            <if test="teuNum != null">
+                teu_num,
+            </if>
+            <if test="containerNum != null">
+                container_num,
+            </if>
+            <if test="dailyStatus != null">
+                daily_status,
+            </if>
+            <if test="feeId != null">
+                fee_id,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="deletedFlag != null">
+                deleted_flag,
+            </if>
+            <if test="createId != null">
+                create_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="modifyId != null">
+                modify_id,
+            </if>
+            <if test="modifyTime != null">
+                modify_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="serialNo != null">
+                #{serialNo,jdbcType=VARCHAR},
+            </if>
+            <if test="entryId != null">
+                #{entryId,jdbcType=VARCHAR},
+            </if>
+            <if test="billNo != null">
+                #{billNo,jdbcType=VARCHAR},
+            </if>
+            <if test="containerNo != null">
+                #{containerNo,jdbcType=VARCHAR},
+            </if>
+            <if test="containerType != null">
+                #{containerType,jdbcType=VARCHAR},
+            </if>
+            <if test="agentCode != null">
+                #{agentCode,jdbcType=VARCHAR},
+            </if>
+            <if test="agentName != null">
+                #{agentName,jdbcType=VARCHAR},
+            </if>
+            <if test="customerCode != null">
+                #{customerCode,jdbcType=VARCHAR},
+            </if>
+            <if test="customerName != null">
+                #{customerName,jdbcType=VARCHAR},
+            </if>
+            <if test="tradeCode != null">
+                #{tradeCode,jdbcType=VARCHAR},
+            </if>
+            <if test="tradeName != null">
+                #{tradeName,jdbcType=VARCHAR},
+            </if>
+            <if test="ownerCode != null">
+                #{ownerCode,jdbcType=VARCHAR},
+            </if>
+            <if test="ownerName != null">
+                #{ownerName,jdbcType=VARCHAR},
+            </if>
+            <if test="carNo != null">
+                #{carNo,jdbcType=INTEGER},
+            </if>
+            <if test="inTime != null">
+                #{inTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="outTime != null">
+                #{outTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="upTime != null">
+                #{upTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="downTime != null">
+                #{downTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="hangboxTimes != null">
+                #{hangboxTimes,jdbcType=INTEGER},
+            </if>
+            <if test="weightingTimes != null">
+                #{weightingTimes,jdbcType=INTEGER},
+            </if>
+            <if test="detentionDays != null">
+                #{detentionDays,jdbcType=INTEGER},
+            </if>
+            <if test="bracketNum != null">
+                #{bracketNum,jdbcType=INTEGER},
+            </if>
+            <if test="unstuffingType != null">
+                #{unstuffingType,jdbcType=VARCHAR},
+            </if>
+            <if test="shippingCompany != null">
+                #{shippingCompany,jdbcType=VARCHAR},
+            </if>
+            <if test="customPass != null">
+                #{customPass,jdbcType=VARCHAR},
+            </if>
+            <if test="customPassTime != null">
+                #{customPassTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="checkPass != null">
+                #{checkPass,jdbcType=VARCHAR},
+            </if>
+            <if test="checkPassTime != null">
+                #{checkPassTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="sealStatus != null">
+                #{sealStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="sealTime != null">
+                #{sealTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="teuNum != null">
+                #{teuNum,jdbcType=INTEGER},
+            </if>
+            <if test="containerNum != null">
+                #{containerNum,jdbcType=INTEGER},
+            </if>
+            <if test="dailyStatus != null">
+                #{dailyStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="feeId != null">
+                #{feeId,jdbcType=INTEGER},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="deletedFlag != null">
+                #{deletedFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="createId != null">
+                #{createId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyId != null">
+                #{modifyId,jdbcType=INTEGER},
+            </if>
+            <if test="modifyTime != null">
+                #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <!--修改-->
+    <update id="updateById" parameterType="CheckWorkInfo">
+        update check_work_info
+        <set>
+            <if test="serialNo != null">
+                serial_no = #{serialNo,jdbcType=VARCHAR},
+            </if>
+            <if test="entryId != null">
+                entry_id = #{entryId,jdbcType=VARCHAR},
+            </if>
+            <if test="billNo != null">
+                bill_no = #{billNo,jdbcType=VARCHAR},
+            </if>
+            <if test="containerNo != null">
+                container_no = #{containerNo,jdbcType=VARCHAR},
+            </if>
+            <if test="containerType != null">
+                container_type = #{containerType,jdbcType=VARCHAR},
+            </if>
+            <if test="agentCode != null">
+                agent_code = #{agentCode,jdbcType=VARCHAR},
+            </if>
+            <if test="agentName != null">
+                agent_name = #{agentName,jdbcType=VARCHAR},
+            </if>
+            <if test="customerCode != null">
+                customer_code = #{customerCode,jdbcType=VARCHAR},
+            </if>
+            <if test="customerName != null">
+                customer_name = #{customerName,jdbcType=VARCHAR},
+            </if>
+            <if test="tradeCode != null">
+                trade_code = #{tradeCode,jdbcType=VARCHAR},
+            </if>
+            <if test="tradeName != null">
+                trade_name = #{tradeName,jdbcType=VARCHAR},
+            </if>
+            <if test="ownerCode != null">
+                owner_code = #{ownerCode,jdbcType=VARCHAR},
+            </if>
+            <if test="ownerName != null">
+                owner_name = #{ownerName,jdbcType=VARCHAR},
+            </if>
+            <if test="carNo != null">
+                car_no = #{carNo,jdbcType=INTEGER},
+            </if>
+            <if test="inTime != null">
+                in_time = #{inTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="outTime != null">
+                out_time = #{outTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="upTime != null">
+                up_time = #{upTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="downTime != null">
+                down_time = #{downTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="hangboxTimes != null">
+                hangbox_times = #{hangboxTimes,jdbcType=INTEGER},
+            </if>
+            <if test="weightingTimes != null">
+                weighting_times = #{weightingTimes,jdbcType=INTEGER},
+            </if>
+            <if test="detentionDays != null">
+                detention_days = #{detentionDays,jdbcType=INTEGER},
+            </if>
+            <if test="bracketNum != null">
+                bracket_num = #{bracketNum,jdbcType=INTEGER},
+            </if>
+            <if test="unstuffingType != null">
+                unstuffing_type = #{unstuffingType,jdbcType=VARCHAR},
+            </if>
+            <if test="shippingCompany != null">
+                shipping_company = #{shippingCompany,jdbcType=VARCHAR},
+            </if>
+            <if test="customPass != null">
+                custom_pass = #{customPass,jdbcType=VARCHAR},
+            </if>
+            <if test="customPassTime != null">
+                custom_pass_time = #{customPassTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="checkPass != null">
+                check_pass = #{checkPass,jdbcType=VARCHAR},
+            </if>
+            <if test="checkPassTime != null">
+                check_pass_time = #{checkPassTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="sealStatus != null">
+                seal_status = #{sealStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="sealTime != null">
+                seal_time = #{sealTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="teuNum != null">
+                teu_num = #{teuNum,jdbcType=INTEGER},
+            </if>
+            <if test="containerNum != null">
+                container_num = #{containerNum,jdbcType=INTEGER},
+            </if>
+            <if test="dailyStatus != null">
+                daily_status = #{dailyStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="feeId != null">
+                fee_id = #{feeId,jdbcType=INTEGER},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="deletedFlag != null">
+                deleted_flag = #{deletedFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="createId != null">
+                create_id = #{createId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyId != null">
+                modify_id = #{modifyId,jdbcType=INTEGER},
+            </if>
+            <if test="modifyTime != null">
+                modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>
