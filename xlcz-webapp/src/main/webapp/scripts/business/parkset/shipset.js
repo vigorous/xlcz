@@ -113,7 +113,7 @@ function edit() {
 }
 
 
-/** 删除部门 */
+/** 删除 */
 function del() {
     var rows = grid.getSelecteds();
     console.table(rows);

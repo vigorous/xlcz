@@ -22,6 +22,10 @@ public class PageSo {
     private int pageIndex;
     /** 每页的数量 */
     private int pageSize;
+    /** 排序字段 */
+    private String sortField;
+    /** 排序规则 ASC DESC */
+    private String sortOrder;
 
 
     /**
@@ -55,5 +59,33 @@ public class PageSo {
      */
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
+    }
+
+    /**
+     * @return the sortField
+     */
+    public String getSortField() {
+        return sortField;
+    }
+
+    /**
+     * @param sortField the sortField to set
+     */
+    public void setSortField(String sortField) {
+        this.sortField = sortField;
+    }
+
+    /**
+     * @return the sortOrder
+     */
+    public String getSortOrder() {
+        return sortOrder;
+    }
+
+    /**
+     * @param sortOrder the sortOrder to set
+     */
+    public void setSortOrder(String sortOrder) {
+        this.sortOrder = sortOrder;
     }
 }

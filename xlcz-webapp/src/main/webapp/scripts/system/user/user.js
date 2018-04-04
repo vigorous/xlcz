@@ -120,7 +120,7 @@ function del() {
     var rows = grid.getSelecteds();
     console.log("rows = ", rows);
     if (rows.length > 0) {
-        showMsgBox("删除", "你确定要删信息吗，删除不可恢复?", function (action) {
+        showMsgBox("删除", "你确定要删信息吗，删除不可恢复?", "mark", function (action) {
             if (action == 'ok') {
                 var ids = [];
                 for (var i = 0; i < rows.length; i++) {

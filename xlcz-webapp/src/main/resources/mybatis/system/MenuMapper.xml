@@ -206,6 +206,7 @@
             if(t1.menu_id is not null, true, false) checked
         from sys_menu t
         left join sys_role_menu t1 on t1.menu_id = t.id and t1.role_id = #{roleId}
+        order by t.id
     </select>
 
 </mapper>

@@ -26,7 +26,7 @@ public interface LogMapper {
      * 物理删除
      *
      * @param id 主键
-     * @return
+     * @return int
      */
     int deleteByPrimaryKey(Integer id);
 
@@ -34,7 +34,7 @@ public interface LogMapper {
      * 新增
      *
      * @param log 日志
-     * @return
+     * @return int
      */
     int insertSelective(Log log);
 
@@ -42,7 +42,7 @@ public interface LogMapper {
      * 通过主键查询
      *
      * @param id 主键
-     * @return
+     * @return Log
      */
     Log selectByPrimaryKey(Integer id);
 

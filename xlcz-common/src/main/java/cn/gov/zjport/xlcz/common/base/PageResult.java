@@ -9,6 +9,10 @@
  ***************************************************************************/
 package cn.gov.zjport.xlcz.common.base;
 
+import com.github.pagehelper.Page;
+
+import java.io.Serializable;
+
 /**
  * 分页结果集
  *
@@ -16,11 +20,29 @@ package cn.gov.zjport.xlcz.common.base;
  * @version $Id$
  * @since 1.0
  */
-public class PageResult {
+public class PageResult<T> implements Serializable {
+    /** serialVersionUID */
+    private static final long serialVersionUID = 1262442449375444267L;
     /** 总数 */
     public Long total;
     /** 数据结果集 */
     public Object data;
+
+    /**
+     * 无参构造
+     */
+    public PageResult() {
+    }
+
+    /**
+     * 构造
+     *
+     * @param page pagehelper的page分页
+     */
+    public PageResult(Page<T> page) {
+        this.total = page.getTotal();
+        this.data = page.getResult();
+    }
 
     /**
      * @return the total
