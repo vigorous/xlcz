@@ -24,12 +24,12 @@
     <aop:config proxy-target-class="true"/>
 
     <!-- 拦截器 -->
-    <mvc:interceptors>
+    <!--<mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**/*.do"/>
             <bean class="cn.gov.zjport.xlcz.webapp.interceptor.WebappInterceptor"/>
         </mvc:interceptor>
-    </mvc:interceptors>
+    </mvc:interceptors>-->
 
     <mvc:default-servlet-handler/>
 

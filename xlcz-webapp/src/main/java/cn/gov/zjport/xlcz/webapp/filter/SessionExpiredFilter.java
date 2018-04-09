@@ -49,14 +49,27 @@ public class SessionExpiredFilter extends PathMatchingFilter {
         return true;
     }
 
-    //session过期给403状态码
-    private void onLoginFail(ServletRequest request, ServletResponse response) throws IOException {
+    /**
+     * 登录失败（session过期给403状态码）
+     *
+     * @param request  请求
+     * @param response 相应
+     * @throws IOException IO异常
+     */
+    private void onLoginFail(ServletRequest request, ServletResponse response) throws Exception {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         httpResponse.setStatus(403);
         httpResponse.setCharacterEncoding("UTF-8");
-        httpResponse.getWriter().write("session超时了");
-        //httpResponse.sendRedirect(httpRequest.getContextPath() + Const.LOGIN);
+        //httpResponse.getWriter().write("session超时了");
+
+        //String str = "<script language='javascript'>alert('会话过期,请重新登录');" + "window.top.location.href='" + httpRequest.getServletPath() + Const.LOGIN + "';</script>";
+        System.out.println(httpRequest.getContextPath() + Const.LOGIN);
+        //httpResponse.getWriter().write(str);
+        httpResponse.sendRedirect(httpRequest.getContextPath() + Const.LOGIN);
+        //httpResponse.sendRedirect(httpRequest.getContextPath() + "/index.jsp");
+        //httpRequest.getRequestDispatcher("/index.jsp").forward(httpRequest, httpResponse);
+        //httpRequest.getRequestDispatcher(httpRequest.getContextPath() + Const.LOGIN).forward(httpRequest, httpResponse);
     }
 
 }
