@@ -33,4 +33,6 @@ public class Const {
     public static final String LOGIN = "/login/toLogin.do";
     /** 不对匹配该值的访问路径拦截（正则） */
     public static final String NO_INTERCEPTOR_PATH = "/login/((toLogin)|(login)|(logout)).*";
+    /** 分隔符 */
+    public static final String CONTAINER_NO_SEPARATER = "\n";
 }

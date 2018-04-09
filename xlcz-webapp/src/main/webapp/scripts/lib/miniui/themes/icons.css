@@ -123,25 +123,3 @@
 .icon-collapse{
 	background:url(icons/collapse.gif) no-repeat;
 }
-
-/********************************新增图标*************************************************/
-/*全部列表*/
-.icon-allList{
-    background:url(../../../../images/allList.png) no-repeat;
-}
-/*信息提示*/
-.icon-messageRemind{
-    background:url(../../../../images/messageRemind.png) no-repeat;
-}
-/*弹出框*/
-.icon-modalBorder{
-    background:url(../../../../images/modalBorder.png) no-repeat;
-}
-/*404提示*/
-.icon-404Remind{
-    background:url(../../../../images/404Remind.png) no-repeat;
-}
-/*图表*/
-.icon-chart{
-    background:url(../../../../images/chart.png) no-repeat;
-}

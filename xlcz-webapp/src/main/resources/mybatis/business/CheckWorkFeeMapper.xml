@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.gov.zjport.xlcz.dao.business.CheckWorkFeeMapper">
+    <!--查验作业费用结果集-->
+    <resultMap id="BaseResultMap" type="CheckWorkFee">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="hangbox_fee" property="hangboxFee" jdbcType="DOUBLE"/>
+        <result column="place_receive_fee" property="placeReceiveFee" jdbcType="DOUBLE"/>
+        <result column="rebate" property="rebate" jdbcType="DOUBLE"/>
+        <result column="place_actual_fee" property="placeActualFee" jdbcType="DOUBLE"/>
+        <result column="weighting_fee" property="weightingFee" jdbcType="DOUBLE"/>
+        <result column="package_fee" property="packageFee" jdbcType="DOUBLE"/>
+        <result column="bracket_fee" property="bracketFee" jdbcType="DOUBLE"/>
+        <result column="detention_fee" property="detentionFee" jdbcType="DOUBLE"/>
+        <result column="unstuffing_fee" property="unstuffingFee" jdbcType="DOUBLE"/>
+        <result column="overtime_fee" property="overtimeFee" jdbcType="DOUBLE"/>
+        <result column="parking_fee" property="parkingFee" jdbcType="DOUBLE"/>
+        <result column="other_fee" property="otherFee" jdbcType="DOUBLE"/>
+        <result column="total_fee" property="totalFee" jdbcType="DOUBLE"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+        <result column="deleted_flag" property="deletedFlag" jdbcType="VARCHAR"/>
+        <result column="create_id" property="createId" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="modify_id" property="modifyId" jdbcType="INTEGER"/>
+        <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <!--字段列表-->
+    <sql id="Base_Column_List">
+        id, hangbox_fee, place_receive_fee, rebate, place_actual_fee, weighting_fee, package_fee,
+        bracket_fee, detention_fee, unstuffing_fee, overtime_fee, parking_fee, other_fee,
+        total_fee, remark, deleted_flag, create_id, create_time, modify_id, modify_time
+    </sql>
+    <!--根据主键查询-->
+    <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from check_work_fee
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <!--删除-->
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete from check_work_fee
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <!--新增-->
+    <insert id="insert" parameterType="CheckWorkFee" useGeneratedKeys="true" keyProperty="id">
+        insert into check_work_fee
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="hangboxFee != null">
+                hangbox_fee,
+            </if>
+            <if test="placeReceiveFee != null">
+                place_receive_fee,
+            </if>
+            <if test="rebate != null">
+                rebate,
+            </if>
+            <if test="placeActualFee != null">
+                place_actual_fee,
+            </if>
+            <if test="weightingFee != null">
+                weighting_fee,
+            </if>
+            <if test="packageFee != null">
+                package_fee,
+            </if>
+            <if test="bracketFee != null">
+                bracket_fee,
+            </if>
+            <if test="detentionFee != null">
+                detention_fee,
+            </if>
+            <if test="unstuffingFee != null">
+                unstuffing_fee,
+            </if>
+            <if test="overtimeFee != null">
+                overtime_fee,
+            </if>
+            <if test="parkingFee != null">
+                parking_fee,
+            </if>
+            <if test="otherFee != null">
+                other_fee,
+            </if>
+            <if test="totalFee != null">
+                total_fee,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="deletedFlag != null">
+                deleted_flag,
+            </if>
+            <if test="createId != null">
+                create_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="modifyId != null">
+                modify_id,
+            </if>
+            <if test="modifyTime != null">
+                modify_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="hangboxFee != null">
+                #{hangboxFee,jdbcType=DOUBLE},
+            </if>
+            <if test="placeReceiveFee != null">
+                #{placeReceiveFee,jdbcType=DOUBLE},
+            </if>
+            <if test="rebate != null">
+                #{rebate,jdbcType=DOUBLE},
+            </if>
+            <if test="placeActualFee != null">
+                #{placeActualFee,jdbcType=DOUBLE},
+            </if>
+            <if test="weightingFee != null">
+                #{weightingFee,jdbcType=DOUBLE},
+            </if>
+            <if test="packageFee != null">
+                #{packageFee,jdbcType=DOUBLE},
+            </if>
+            <if test="bracketFee != null">
+                #{bracketFee,jdbcType=DOUBLE},
+            </if>
+            <if test="detentionFee != null">
+                #{detentionFee,jdbcType=DOUBLE},
+            </if>
+            <if test="unstuffingFee != null">
+                #{unstuffingFee,jdbcType=DOUBLE},
+            </if>
+            <if test="overtimeFee != null">
+                #{overtimeFee,jdbcType=DOUBLE},
+            </if>
+            <if test="parkingFee != null">
+                #{parkingFee,jdbcType=DOUBLE},
+            </if>
+            <if test="otherFee != null">
+                #{otherFee,jdbcType=DOUBLE},
+            </if>
+            <if test="totalFee != null">
+                #{totalFee,jdbcType=DOUBLE},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="deletedFlag != null">
+                #{deletedFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="createId != null">
+                #{createId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyId != null">
+                #{modifyId,jdbcType=INTEGER},
+            </if>
+            <if test="modifyTime != null">
+                #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <!--修改-->
+    <update id="updateById" parameterType="CheckWorkFee">
+        update check_work_fee
+        <set>
+            <if test="hangboxFee != null">
+                hangbox_fee = #{hangboxFee,jdbcType=DOUBLE},
+            </if>
+            <if test="placeReceiveFee != null">
+                place_receive_fee = #{placeReceiveFee,jdbcType=DOUBLE},
+            </if>
+            <if test="rebate != null">
+                rebate = #{rebate,jdbcType=DOUBLE},
+            </if>
+            <if test="placeActualFee != null">
+                place_actual_fee = #{placeActualFee,jdbcType=DOUBLE},
+            </if>
+            <if test="weightingFee != null">
+                weighting_fee = #{weightingFee,jdbcType=DOUBLE},
+            </if>
+            <if test="packageFee != null">
+                package_fee = #{packageFee,jdbcType=DOUBLE},
+            </if>
+            <if test="bracketFee != null">
+                bracket_fee = #{bracketFee,jdbcType=DOUBLE},
+            </if>
+            <if test="detentionFee != null">
+                detention_fee = #{detentionFee,jdbcType=DOUBLE},
+            </if>
+            <if test="unstuffingFee != null">
+                unstuffing_fee = #{unstuffingFee,jdbcType=DOUBLE},
+            </if>
+            <if test="overtimeFee != null">
+                overtime_fee = #{overtimeFee,jdbcType=DOUBLE},
+            </if>
+            <if test="parkingFee != null">
+                parking_fee = #{parkingFee,jdbcType=DOUBLE},
+            </if>
+            <if test="otherFee != null">
+                other_fee = #{otherFee,jdbcType=DOUBLE},
+            </if>
+            <if test="totalFee != null">
+                total_fee = #{totalFee,jdbcType=DOUBLE},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="deletedFlag != null">
+                deleted_flag = #{deletedFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="createId != null">
+                create_id = #{createId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyId != null">
+                modify_id = #{modifyId,jdbcType=INTEGER},
+            </if>
+            <if test="modifyTime != null">
+                modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>
